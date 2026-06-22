@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filières INP-HB — EXCELLENCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+:root, [data-theme="dark"]{
+  --gold:      #C9A84C;
+  --gold-soft: #E8CB7A;
+  --gold-dim:  rgba(201,168,76,0.18);
+  --navy:      #08122B;
+  --navy-mid:  #0E1D3F;
+  --white:     #FFFFFF;
+  --muted:     rgba(255,255,255,0.45);
+  --error:     #E05757;
+  --card-bg:   rgba(14,29,63,0.65);
+  --card-border: rgba(255,255,255,0.09);
+  --label-color: rgba(255,255,255,0.45);
+  --title-color: #FFFFFF;
+  --sub-color:   rgba(255,255,255,0.55);
+  --eyebrow-color: #C9A84C;
+  --row-bg:    rgba(255,255,255,0.055);
+  --row-border: rgba(255,255,255,0.07);
+  --shadow-box: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.08) inset;
+  --toggle-bg:  rgba(255,255,255,0.08);
+  --toggle-border: rgba(255,255,255,0.15);
+  --toggle-color: rgba(255,255,255,0.7);
+  --nav-bg: rgba(8,18,43,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --chip-bg: rgba(255,255,255,0.06);
+  --chip-border: rgba(255,255,255,0.10);
+  --chip-color: rgba(255,255,255,0.85);
+  --footer-bg: #050B1A;
+  --footer-border: rgba(255,255,255,0.08);
+  --footer-color: rgba(255,255,255,0.5);
+  --serie-btn-bg: rgba(14,29,63,0.65);
+  --serie-btn-border: rgba(255,255,255,0.10);
+  --serie-btn-color: rgba(255,255,255,0.75);
+  --serie-btn-hover-bg: rgba(201,168,76,0.10);
+  --serie-btn-hover-border: rgba(201,168,76,0.40);
+  --serie-btn-active-bg: rgba(201,168,76,0.18);
+  --serie-btn-active-border: #C9A84C;
+  --serie-btn-active-color: #E8CB7A;
+  --badge-court-bg: rgba(108,200,130,0.12);
+  --badge-court-border: rgba(108,200,130,0.35);
+  --badge-court-color: #7EDFA0;
+  --badge-long-bg: rgba(108,127,216,0.14);
+  --badge-long-border: rgba(108,127,216,0.35);
+  --badge-long-color: #9BABF5;
+}
+
+[data-theme="light"]{
+  --gold:      #B8860B;
+  --gold-soft: #8A6500;
+  --gold-dim:  rgba(184,134,11,0.10);
+  --white:     #1A2515;
+  --muted:     rgba(26,37,21,0.5);
+  --card-bg:   rgba(255,255,255,0.92);
+  --card-border: rgba(0,0,0,0.07);
+  --label-color: rgba(26,37,21,0.5);
+  --title-color: #1A2515;
+  --sub-color:   rgba(26,37,21,0.6);
+  --eyebrow-color: #2E7D32;
+  --row-bg:    rgba(0,0,0,0.03);
+  --row-border: rgba(0,0,0,0.07);
+  --shadow-box: 0 8px 40px rgba(0,0,0,0.10);
+  --toggle-bg:  rgba(0,0,0,0.05);
+  --toggle-border: rgba(0,0,0,0.12);
+  --toggle-color: rgba(26,37,21,0.7);
+  --nav-bg: rgba(247,249,244,0.78);
+  --nav-border: rgba(0,0,0,0.06);
+  --chip-bg: rgba(0,0,0,0.035);
+  --chip-border: rgba(0,0,0,0.09);
+  --chip-color: rgba(26,37,21,0.8);
+  --footer-bg: #11160E;
+  --footer-border: rgba(255,255,255,0.08);
+  --footer-color: rgba(255,255,255,0.45);
+  --serie-btn-bg: rgba(255,255,255,0.85);
+  --serie-btn-border: rgba(0,0,0,0.09);
+  --serie-btn-color: rgba(26,37,21,0.75);
+  --serie-btn-hover-bg: rgba(46,125,50,0.07);
+  --serie-btn-hover-border: rgba(46,125,50,0.35);
+  --serie-btn-active-bg: rgba(46,125,50,0.13);
+  --serie-btn-active-border: #2E7D32;
+  --serie-btn-active-color: #1B5E20;
+  --badge-court-bg: rgba(56,142,60,0.10);
+  --badge-court-border: rgba(56,142,60,0.30);
+  --badge-court-color: #2E7D32;
+  --badge-long-bg: rgba(59,94,198,0.08);
+  --badge-long-border: rgba(59,94,198,0.25);
+  --badge-long-color: #3B5EC6;
+}
+
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Inter',sans-serif;
+  color: var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition: color 0.35s;
+}
+[data-theme="dark"] body{
+  background: radial-gradient(ellipse 120% 60% at 50% 0%, #142456 0%, #08122B 45%, #030A1A 100%);
+}
+[data-theme="light"] body{
+  background: radial-gradient(ellipse 120% 60% at 50% 0%, #E8F5E9 0%, #F1F8F1 45%, #F7FBF7 100%);
+}
+.bg-glow{
+  position:fixed; top:-220px; left:50%; transform:translateX(-50%);
+  width:900px; height:600px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+
+/* NAVBAR */
+.navbar{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 32px;
+  background:var(--nav-bg); border-bottom:1px solid var(--nav-border);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  transition: background 0.35s, border-color 0.35s;
+}
+.nav-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-brand img{ width:42px; height:42px; object-fit:contain; }
+.nav-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem; letter-spacing:2px; color:var(--title-color); }
+.nav-brand .word span{ color:var(--gold); }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.nav-back{
+  display:flex; align-items:center; gap:6px;
+  font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:500;
+  color:var(--sub-color); padding:7px 14px; border-radius:20px;
+  border:1px solid var(--toggle-border); background:var(--toggle-bg);
+  transition: color 0.2s, border-color 0.2s, transform 0.15s;
+  text-decoration:none;
+}
+.nav-back:hover{ color:var(--gold-soft); border-color:var(--gold); transform:translateY(-1px); }
+.nav-cta{
+  font-family:'Space Grotesk',sans-serif; font-size:0.8rem; font-weight:700;
+  padding:9px 18px; border-radius:10px;
+  background:linear-gradient(135deg, #D4AF37 0%, #A07820 100%);
+  color:#08122B; white-space:nowrap; text-decoration:none;
+  box-shadow:0 4px 16px rgba(201,168,76,0.25);
+  transition:opacity 0.2s, transform 0.15s;
+}
+[data-theme="light"] .nav-cta{ color:#F7FBF7; background:linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); }
+.nav-cta:hover{ opacity:0.9; transform:translateY(-1px); }
+.theme-toggle{
+  display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:20px;
+  border:1px solid var(--toggle-border); background:var(--toggle-bg); color:var(--toggle-color);
+  font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600;
+  cursor:pointer; transition:transform 0.15s;
+}
+.theme-toggle:hover{ transform:translateY(-1px); }
+
+/* PAGE CONTENT */
+.page-wrap{ max-width:1100px; margin:0 auto; padding:110px 24px 80px; position:relative; z-index:1; }
+
+/* PAGE HEADER */
+.page-header{ text-align:center; margin-bottom:56px; }
+.page-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--eyebrow-color); margin-bottom:12px; }
+.page-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.5px; font-size:clamp(1.8rem, 4vw, 2.8rem); color:var(--title-color); line-height:1.15; }
+.page-title .accent{ color:var(--gold-soft); }
+.page-sub{ margin-top:14px; font-size:0.95rem; color:var(--sub-color); line-height:1.65; max-width:540px; margin-left:auto; margin-right:auto; }
+
+/* LEGEND */
+.legend{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:44px; }
+.legend-item{ display:flex; align-items:center; gap:8px; font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:600; }
+.legend-dot{ width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+.legend-dot.court{ background:var(--badge-court-color); }
+.legend-dot.long{ background:var(--badge-long-color); }
+
+/* SERIE SELECTOR */
+.selector-label{
+  font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase; color:var(--eyebrow-color);
+  text-align:center; margin-bottom:18px;
+}
+.serie-groups{ display:flex; flex-direction:column; gap:22px; margin-bottom:52px; }
+.serie-group-label{
+  font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--muted);
+  margin-bottom:10px;
+}
+.serie-btns{ display:flex; flex-wrap:wrap; gap:10px; }
+.serie-btn{
+  font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:600;
+  padding:10px 20px; border-radius:12px; border:1.5px solid var(--serie-btn-border);
+  background:var(--serie-btn-bg); color:var(--serie-btn-color);
+  cursor:pointer; transition:all 0.2s; backdrop-filter:blur(8px);
+}
+.serie-btn:hover{ background:var(--serie-btn-hover-bg); border-color:var(--serie-btn-hover-border); color:var(--title-color); transform:translateY(-1px); }
+.serie-btn.active{ background:var(--serie-btn-active-bg); border-color:var(--serie-btn-active-border); color:var(--serie-btn-active-color); box-shadow:0 0 0 3px rgba(201,168,76,0.10); }
+
+/* RESULT AREA */
+.result-area{ min-height:200px; }
+.prompt-state{ text-align:center; padding:80px 20px; }
+.prompt-icon{ font-size:3rem; margin-bottom:18px; }
+.prompt-state h3{ font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; color:var(--title-color); margin-bottom:8px; }
+.prompt-state p{ font-size:0.88rem; color:var(--sub-color); }
+
+/* FOOTER */
+footer{ background:var(--footer-bg); border-top:1px solid var(--footer-border); padding:32px 24px 20px; position:relative; z-index:1; margin-top:60px; }
+.footer-inner{ max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+.footer-brand{ display:flex; align-items:center; gap:10px; }
+.footer-brand img{ width:30px; height:30px; object-fit:contain; }
+.footer-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; letter-spacing:2px; font-size:0.9rem; }
+.footer-brand .word span{ color:var(--gold); }
+.footer-copy{ font-size:0.75rem; color:var(--footer-color); }
+
+@media(max-width:600px){
+  .navbar{ padding:10px 16px; }
+  .page-wrap{ padding:100px 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="inphb.html" class="nav-brand">
+    <img src="logo.png" alt="Logo Excellence">
+    <span class="word">EXCELLENC<span>E</span></span>
+  </a>
+  <div class="nav-actions">
+    <a href="inphb.html" class="nav-back">← Retour INP-HB</a>
+    <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">Mode clair</span></button>
+    <a href="simulateur.html" class="nav-cta">📐 Étude de dossier</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-eyebrow">INP-HB · Côte d'Ivoire</div>
+    <h1 class="page-title">Filières accessibles<br>par <span class="accent">série de Bac</span></h1>
+    <p class="page-sub">Sélectionnez votre série pour découvrir toutes les filières auxquelles vous pouvez candidater.</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot court"></div><span style="color:var(--sub-color)">Cycle court — Technicien supérieur (DTS)</span></div>
+    <div class="legend-item"><div class="legend-dot long"></div><span style="color:var(--sub-color)">Cycle long — Classes préparatoires (EPGE)</span></div>
+  </div>
+
+  <!-- SERIE SELECTOR -->
+  <div class="selector-label">Choisissez votre série de Baccalauréat</div>
+
+  <div class="serie-groups">
+
+    <div>
+      <div class="serie-group-label">Séries générales</div>
+      <div class="serie-btns">
+        <button class="serie-btn" onclick="selectSerie('A1', this)">Série A1</button>
+        <button class="serie-btn" onclick="selectSerie('A2', this)">Série A2</button>
+        <button class="serie-btn" onclick="selectSerie('B', this)">Série B</button>
+        <button class="serie-btn" onclick="selectSerie('C', this)">Série C</button>
+        <button class="serie-btn" onclick="selectSerie('D', this)">Série D</button>
+        <button class="serie-btn" onclick="selectSerie('E', this)">Série E</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="serie-group-label">Séries techniques</div>
+      <div class="serie-btns">
+        <button class="serie-btn" onclick="selectSerie('F1', this)">Série F1</button>
+        <button class="serie-btn" onclick="selectSerie('F2', this)">Série F2</button>
+        <button class="serie-btn" onclick="selectSerie('F3', this)">Série F3</button>
+        <button class="serie-btn" onclick="selectSerie('F4', this)">Série F4</button>
+        <button class="serie-btn" onclick="selectSerie('F7', this)">Série F7</button>
+        <button class="serie-btn" onclick="selectSerie('G2', this)">Série G2</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="serie-group-label">Brevet de Technicien</div>
+      <div class="serie-btns">
+        <button class="serie-btn" onclick="selectSerie('BT Compta', this)">BT Compta</button>
+        <button class="serie-btn" onclick="selectSerie('BT STIC', this)">BT STIC</button>
+        <button class="serie-btn" onclick="selectSerie('BT STGI', this)">BT STGI</button>
+        <button class="serie-btn" onclick="selectSerie('BT GC', this)">BT GC</button>
+        <button class="serie-btn" onclick="selectSerie('BT MP', this)">BT MP</button>
+        <button class="serie-btn" onclick="selectSerie('BT CGP', this)">BT CGP</button>
+        <button class="serie-btn" onclick="selectSerie('BT Agro-Indus', this)">BT Agro-Indus</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RESULT AREA -->
+  <div class="result-area" id="resultArea">
+    <div class="prompt-state">
+      <div class="prompt-icon">🎓</div>
+      <h3>Sélectionnez votre série ci-dessus</h3>
+      <p>Les filières accessibles s'ouvriront dans un nouvel onglet, organisées par cycle court et cycle long.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Logo Excellence">
+      <span class="word">EXCELLENC<span>E</span></span>
+    </div>
+    <div class="footer-copy">© 2026 EXCELLENCE — Prépa Grandes Écoles. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+// ─── DONNÉES FILIÈRES PAR SÉRIE — SOURCE : BROCHURE CONCOURS BAC/BT 2025 ─────
+
+const DATA = {
+  // ── Séries générales ──────────────────────────────────────────────────────
+  'A1': {
+    court: ['GAE'],
+    long:  ['ECG', 'LSA']
+  },
+  'A2': {
+    court: ['GAE'],
+    long:  ['LSA']
+  },
+  'B': {
+    court: ['GAE', 'FCA'],
+    long:  ['ECG']
+  },
+  'C': {
+    court: ['GAE', 'FCA', 'STIC', 'STGI', 'GC', 'MG', 'PME', 'CGP', 'TSAERO', 'TSA'],
+    long:  ['ECG', 'LSA', 'BCPST', 'MPSI', 'PCSI', 'MP2I']
+  },
+  'D': {
+    court: ['GAE', 'FCA', 'STIC', 'STGI', 'GC', 'MG', 'PME', 'CGP', 'TSAERO', 'TSA'],
+    long:  ['ECG', 'LSA', 'BCPST', 'PCSI']
+  },
+  'E': {
+    court: ['STGI', 'GC', 'MG', 'PME', 'CGP', 'TSAERO'],
+    long:  ['MPSI', 'PCSI', 'MP2I']
+  },
+
+  // ── Séries techniques ─────────────────────────────────────────────────────
+  'F1': {
+    court: ['STGI', 'TSAERO'],
+    long:  []
+  },
+  'F2': {
+    court: ['STIC', 'STGI', 'TSAERO'],
+    long:  []
+  },
+  'F3': {
+    court: ['STGI', 'TSAERO'],
+    long:  []
+  },
+  'F4': {
+    court: ['GC'],
+    long:  []
+  },
+  'F7': {
+    court: ['TSA'],
+    long:  []
+  },
+  'G2': {
+    court: ['GAE', 'FCA'],
+    long:  ['ECG']
+  },
+
+  // ── Brevets de Technicien ─────────────────────────────────────────────────
+  'BT Compta': {
+    court: ['FCA'],
+    long:  []
+  },
+  'BT STIC': {
+    court: ['STIC'],
+    long:  []
+  },
+  'BT STGI': {
+    court: ['STGI'],
+    long:  []
+  },
+  'BT GC': {
+    court: ['GC'],
+    long:  []
+  },
+  'BT MP': {
+    court: ['MG', 'PME'],
+    long:  []
+  },
+  'BT CGP': {
+    court: ['CGP'],
+    long:  []
+  },
+  'BT Agro-Indus': {
+    court: ['TSA'],
+    long:  []
+  }
+};
+
+// ─── LABELS COMPLETS DES FILIÈRES ────────────────────────────────────────────
+const FILIERE_LABELS = {
+  // Cycle court
+  GAE:    'GAE — Gestion et Administration des Entreprises',
+  FCA:    'FCA — Finance, Comptabilité et Assurance',
+  STIC:   'STIC — Sciences et Technologies de l\'Information et de la Communication',
+  STGI:   'STGI — Sciences et Technologies du Génie Industriel',
+  GC:     'GC — Génie Civil',
+  MG:     'MG — Mines et Géologie',
+  PME:    'PME — Pétrole et Maintenance des Équipements',
+  CGP:    'CGP — Chimie et Génie des Procédés',
+  TSAERO: 'TSAERO — Techniciens Supérieurs en Aéronautique',
+  TSA:    'TSA — Techniciens Supérieurs en Agronomie',
+  // Cycle long
+  ECG:    'ECG — Économique et Commerciale Générale',
+  LSA:    'LSA — Littéraire et Scientifique Appliqués',
+  BCPST:  'BCPST — Biologie, Chimie, Physique et Sciences de la Terre',
+  MPSI:   'MPSI — Mathématiques, Physique et Sciences de l\'Ingénieur',
+  PCSI:   'PCSI — Physique, Chimie et Sciences de l\'Ingénieur',
+  MP2I:   'MP2I — Mathématiques, Physique, Ingénierie et Informatique'
+};
+
+// ─── SÉLECTION D'UNE SÉRIE → NOUVEL ONGLET ───────────────────────────────────
+function selectSerie(serie, btn) {
+  document.querySelectorAll('.serie-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const data = DATA[serie];
+  if (!data) return;
+
+  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const courtFilieres = data.court || [];
+  const longFilieres  = data.long  || [];
+  const total = courtFilieres.length + longFilieres.length;
+
+  const newPageHTML = buildResultPage(serie, courtFilieres, longFilieres, total, theme);
+
+  const newTab = window.open('', '_blank');
+  if (newTab) {
+    newTab.document.open();
+    newTab.document.write(newPageHTML);
+    newTab.document.close();
+  }
+}
+
+// ─── CONSTRUCTION DE LA PAGE RÉSULTAT ────────────────────────────────────────
+function buildResultPage(serie, courtFilieres, longFilieres, total, theme) {
+
+  const cardsCourt = courtFilieres.map((f, i) => {
+    const full  = FILIERE_LABELS[f] || f;
+    const parts = full.split(' — ');
+    const code  = parts[0];
+    const label = parts[1] || '';
+    return `
+    <div class="filiere-card anim" style="animation-delay:${i * 0.05}s">
+      <div class="filiere-code">${code}</div>
+      ${label ? `<div class="filiere-name">${label}</div>` : ''}
+      <span class="filiere-badge court">Cycle court · DTS</span>
+    </div>`;
+  }).join('');
+
+  const cardsLong = longFilieres.map((f, i) => {
+    const full  = FILIERE_LABELS[f] || f;
+    const parts = full.split(' — ');
+    const code  = parts[0];
+    const label = parts[1] || '';
+    return `
+    <div class="filiere-card anim" style="animation-delay:${(courtFilieres.length + i) * 0.05}s">
+      <div class="filiere-code">${code}</div>
+      ${label ? `<div class="filiere-name">${label}</div>` : ''}
+      <span class="filiere-badge long">Cycle long · EPGE</span>
+    </div>`;
+  }).join('');
+
+  const sectionCourt = courtFilieres.length > 0 ? `
+    <div class="cycle-section">
+      <div class="cycle-header">
+        <div class="cycle-title">🎯 Cycle court — Technicien Supérieur (DTS)</div>
+        <span class="cycle-count court">${courtFilieres.length} filière${courtFilieres.length > 1 ? 's' : ''}</span>
+      </div>
+      <div class="filieres-grid">${cardsCourt}</div>
+    </div>` : '';
+
+  const sectionLong = longFilieres.length > 0 ? `
+    <div class="cycle-section">
+      <div class="cycle-header">
+        <div class="cycle-title">🎓 Cycle long — Classes préparatoires (EPGE)</div>
+        <span class="cycle-count long">${longFilieres.length} filière${longFilieres.length > 1 ? 's' : ''}</span>
+      </div>
+      <div class="filieres-grid">${cardsLong}</div>
+    </div>` : '';
+
+  const noLongNote = longFilieres.length === 0 ? `
+    <div class="no-long-note">
+      ℹ️ La série <strong>${serie}</strong> ne donne pas accès aux cycles longs (classes préparatoires) à l'INP-HB.
+    </div>` : '';
+
+  return `<!DOCTYPE html>
+<html lang="fr" data-theme="${theme}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Série ${serie} — Filières INP-HB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+:root,[data-theme="dark"]{
+  --gold:#C9A84C; --gold-soft:#E8CB7A;
+  --white:#FFFFFF; --muted:rgba(255,255,255,0.45);
+  --card-bg:rgba(14,29,63,0.65); --card-border:rgba(255,255,255,0.09);
+  --title-color:#FFFFFF; --sub-color:rgba(255,255,255,0.55);
+  --eyebrow-color:#C9A84C;
+  --row-bg:rgba(255,255,255,0.055); --row-border:rgba(255,255,255,0.07);
+  --nav-bg:rgba(8,18,43,0.85); --nav-border:rgba(255,255,255,0.08);
+  --toggle-bg:rgba(255,255,255,0.08); --toggle-border:rgba(255,255,255,0.15); --toggle-color:rgba(255,255,255,0.7);
+  --badge-court-bg:rgba(108,200,130,0.12); --badge-court-border:rgba(108,200,130,0.35); --badge-court-color:#7EDFA0;
+  --badge-long-bg:rgba(108,127,216,0.14); --badge-long-border:rgba(108,127,216,0.35); --badge-long-color:#9BABF5;
+  --serie-active-bg:rgba(201,168,76,0.18); --serie-active-border:#C9A84C; --serie-active-color:#E8CB7A;
+  --footer-bg:#050B1A; --footer-border:rgba(255,255,255,0.08); --footer-color:rgba(255,255,255,0.5);
+}
+[data-theme="light"]{
+  --gold:#B8860B; --gold-soft:#8A6500;
+  --white:#1A2515; --muted:rgba(26,37,21,0.5);
+  --card-bg:rgba(255,255,255,0.92); --card-border:rgba(0,0,0,0.07);
+  --title-color:#1A2515; --sub-color:rgba(26,37,21,0.6);
+  --eyebrow-color:#2E7D32;
+  --row-bg:rgba(0,0,0,0.03); --row-border:rgba(0,0,0,0.07);
+  --nav-bg:rgba(247,249,244,0.90); --nav-border:rgba(0,0,0,0.06);
+  --toggle-bg:rgba(0,0,0,0.05); --toggle-border:rgba(0,0,0,0.12); --toggle-color:rgba(26,37,21,0.7);
+  --badge-court-bg:rgba(56,142,60,0.10); --badge-court-border:rgba(56,142,60,0.30); --badge-court-color:#2E7D32;
+  --badge-long-bg:rgba(59,94,198,0.08); --badge-long-border:rgba(59,94,198,0.25); --badge-long-color:#3B5EC6;
+  --serie-active-bg:rgba(46,125,50,0.13); --serie-active-border:#2E7D32; --serie-active-color:#1B5E20;
+  --footer-bg:#11160E; --footer-border:rgba(255,255,255,0.08); --footer-color:rgba(255,255,255,0.45);
+}
+html{ scroll-behavior:smooth; }
+body{ font-family:'Inter',sans-serif; color:var(--white); min-height:100vh; overflow-x:hidden; }
+[data-theme="dark"] body{ background:radial-gradient(ellipse 120% 60% at 50% 0%, #142456 0%, #08122B 45%, #030A1A 100%); }
+[data-theme="light"] body{ background:radial-gradient(ellipse 120% 60% at 50% 0%, #E8F5E9 0%, #F1F8F1 45%, #F7FBF7 100%); }
+.bg-glow{ position:fixed; top:-220px; left:50%; transform:translateX(-50%); width:900px; height:600px; background:radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%); pointer-events:none; z-index:0; }
+.navbar{ position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:10px 32px; background:var(--nav-bg); border-bottom:1px solid var(--nav-border); backdrop-filter:blur(16px); }
+.nav-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem; letter-spacing:2px; color:var(--title-color); }
+.nav-brand .word span{ color:var(--gold); }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.nav-back{ display:flex; align-items:center; gap:6px; font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:500; color:var(--sub-color); padding:7px 14px; border-radius:20px; border:1px solid var(--toggle-border); background:var(--toggle-bg); cursor:pointer; transition:color 0.2s, border-color 0.2s, transform 0.15s; text-decoration:none; }
+.nav-back:hover{ color:var(--gold-soft); border-color:var(--gold); transform:translateY(-1px); }
+.theme-toggle{ display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:20px; border:1px solid var(--toggle-border); background:var(--toggle-bg); color:var(--toggle-color); font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600; cursor:pointer; transition:transform 0.15s; }
+.theme-toggle:hover{ transform:translateY(-1px); }
+.page-wrap{ max-width:1100px; margin:0 auto; padding:110px 24px 80px; position:relative; z-index:1; }
+.page-header{ text-align:center; margin-bottom:48px; }
+.page-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--eyebrow-color); margin-bottom:12px; }
+.page-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.5px; font-size:clamp(1.8rem,4vw,2.8rem); color:var(--title-color); line-height:1.15; }
+.page-title .accent{ color:var(--gold-soft); }
+.result-header{ display:flex; align-items:center; gap:14px; margin-bottom:32px; padding-bottom:18px; border-bottom:1px solid var(--row-border); }
+.result-serie-badge{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem; padding:8px 18px; border-radius:10px; background:var(--serie-active-bg); border:1.5px solid var(--serie-active-border); color:var(--serie-active-color); }
+.result-title{ font-family:'Space Grotesk',sans-serif; font-size:1.15rem; font-weight:700; color:var(--title-color); }
+.result-count{ font-size:0.82rem; color:var(--muted); margin-top:2px; }
+.cycle-section{ margin-bottom:38px; }
+.cycle-header{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.cycle-title{ font-family:'Space Grotesk',sans-serif; font-size:0.9rem; font-weight:700; color:var(--title-color); }
+.cycle-count{ font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:20px; }
+.cycle-count.court{ background:var(--badge-court-bg); border:1px solid var(--badge-court-border); color:var(--badge-court-color); }
+.cycle-count.long{ background:var(--badge-long-bg); border:1px solid var(--badge-long-border); color:var(--badge-long-color); }
+.filieres-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:12px; }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+.filiere-card{ background:var(--card-bg); border:1.5px solid var(--card-border); border-radius:14px; padding:18px 16px; backdrop-filter:blur(12px); display:flex; flex-direction:column; gap:8px; transition:transform 0.18s, border-color 0.18s; }
+.filiere-card.anim{ opacity:0; animation:fadeUp 0.4s ease forwards; }
+.filiere-card:hover{ transform:translateY(-2px); border-color:var(--gold); }
+.filiere-code{ font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; color:var(--title-color); letter-spacing:0.5px; }
+.filiere-name{ font-size:0.78rem; color:var(--sub-color); line-height:1.45; }
+.filiere-badge{ display:inline-flex; align-items:center; font-family:'Space Grotesk',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:4px 9px; border-radius:6px; width:fit-content; margin-top:2px; }
+.filiere-badge.court{ background:var(--badge-court-bg); border:1px solid var(--badge-court-border); color:var(--badge-court-color); }
+.filiere-badge.long{ background:var(--badge-long-bg); border:1px solid var(--badge-long-border); color:var(--badge-long-color); }
+.no-long-note{ background:var(--row-bg); border:1px solid var(--row-border); border-radius:12px; padding:14px 18px; font-size:0.83rem; color:var(--sub-color); margin-top:4px; }
+.no-long-note strong{ color:var(--title-color); }
+footer{ background:var(--footer-bg); border-top:1px solid var(--footer-border); padding:32px 24px 20px; position:relative; z-index:1; margin-top:60px; }
+.footer-inner{ max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+.footer-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; letter-spacing:2px; font-size:0.9rem; }
+.footer-brand .word span{ color:var(--gold); }
+.footer-copy{ font-size:0.75rem; color:var(--footer-color); }
+@media(max-width:600px){ .navbar{ padding:10px 16px; } .page-wrap{ padding:100px 16px 60px; } .filieres-grid{ grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="word">EXCELLENC<span>E</span></span>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-back" onclick="window.close()">← Fermer l'onglet</button>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="themeIcon">${theme === 'dark' ? '🌙' : '☀️'}</span>
+      <span id="themeLabel">${theme === 'dark' ? 'Mode clair' : 'Mode sombre'}</span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="page-eyebrow">INP-HB · Côte d'Ivoire</div>
+    <h1 class="page-title">Filières accessibles — <span class="accent">Série ${serie}</span></h1>
+  </div>
+
+  <div class="result-header">
+    <div class="result-serie-badge">Série ${serie}</div>
+    <div>
+      <div class="result-title">Filières accessibles</div>
+      <div class="result-count">${total} filière${total > 1 ? 's' : ''} au total · ${courtFilieres.length} cycle court · ${longFilieres.length} cycle long</div>
+    </div>
+  </div>
+
+  ${sectionCourt}
+  ${sectionLong}
+  ${noLongNote}
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="word">EXCELLENC<span>E</span></span>
+    </div>
+    <div class="footer-copy">© 2026 EXCELLENCE — Prépa Grandes Écoles. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){
+  const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeIcon').textContent = t === 'dark' ? '🌙' : '☀️';
+  document.getElementById('themeLabel').textContent = t === 'dark' ? 'Mode clair' : 'Mode sombre';
+}
+<\/script>
+</body>
+</html>`;
+}
+
+// ─── THÈME ────────────────────────────────────────────────────────────────────
+function initTheme(){
+  const saved = localStorage.getItem("inphb_theme") || "dark";
+  setTheme(saved);
+}
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("themeIcon").textContent = t === "dark" ? "🌙" : "☀️";
+  document.getElementById("themeLabel").textContent = t === "dark" ? "Mode clair" : "Mode sombre";
+  localStorage.setItem("inphb_theme", t);
+}
+function toggleTheme(){
+  setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+}
+
+initTheme();
+</script>
+</body>
+</html>

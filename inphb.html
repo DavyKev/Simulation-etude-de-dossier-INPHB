@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concours INP-HB — EXCELLENCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+:root, [data-theme="dark"]{
+  --gold:      #C9A84C;
+  --gold-soft: #E8CB7A;
+  --gold-dim:  rgba(201,168,76,0.18);
+  --navy:      #08122B;
+  --navy-mid:  #0E1D3F;
+  --white:     #FFFFFF;
+  --muted:     rgba(255,255,255,0.45);
+  --error:     #E05757;
+  --card-bg:   rgba(14,29,63,0.65);
+  --card-border: rgba(255,255,255,0.09);
+  --label-color: rgba(255,255,255,0.45);
+  --title-color: #FFFFFF;
+  --sub-color:   rgba(255,255,255,0.55);
+  --eyebrow-color: #C9A84C;
+  --divider-bg:  linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  --row-bg:    rgba(255,255,255,0.055);
+  --row-bg-h:  rgba(255,255,255,0.10);
+  --row-border: rgba(255,255,255,0.07);
+  --btn-sec-border: rgba(255,255,255,0.16);
+  --btn-sec-color:  rgba(255,255,255,0.65);
+  --btn-sec-border-h: rgba(255,255,255,0.35);
+  --btn-sec-color-h: #FFFFFF;
+  --shadow-box: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.08) inset;
+  --toggle-bg:  rgba(255,255,255,0.08);
+  --toggle-border: rgba(255,255,255,0.15);
+  --toggle-color: rgba(255,255,255,0.7);
+  --nav-bg: rgba(8,18,43,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --chip-bg: rgba(255,255,255,0.06);
+  --chip-border: rgba(255,255,255,0.10);
+  --chip-color: rgba(255,255,255,0.85);
+  --chip-bg-long: rgba(108,127,216,0.12);
+  --chip-border-long: rgba(108,127,216,0.30);
+  --footer-bg: #050B1A;
+  --footer-border: rgba(255,255,255,0.08);
+  --footer-color: rgba(255,255,255,0.5);
+  --laurel-color: rgba(201,168,76,0.55);
+}
+
+[data-theme="light"]{
+  --gold:      #B8860B;
+  --gold-soft: #8A6500;
+  --gold-dim:  rgba(184,134,11,0.10);
+  --white:     #1A2515;
+  --muted:     rgba(26,37,21,0.5);
+  --card-bg:   rgba(255,255,255,0.92);
+  --card-border: rgba(0,0,0,0.07);
+  --label-color: rgba(26,37,21,0.5);
+  --title-color: #1A2515;
+  --sub-color:   rgba(26,37,21,0.6);
+  --eyebrow-color: #2E7D32;
+  --divider-bg:  linear-gradient(90deg, transparent, rgba(46,125,50,0.3), transparent);
+  --row-bg:    rgba(0,0,0,0.03);
+  --row-bg-h:  rgba(0,0,0,0.055);
+  --row-border: rgba(0,0,0,0.07);
+  --btn-sec-border: rgba(0,0,0,0.14);
+  --btn-sec-color:  rgba(26,37,21,0.6);
+  --btn-sec-border-h: rgba(0,0,0,0.32);
+  --btn-sec-color-h: #1A2515;
+  --shadow-box: 0 8px 40px rgba(0,0,0,0.10), 0 0 0 1px rgba(46,125,50,0.08) inset;
+  --toggle-bg:  rgba(0,0,0,0.05);
+  --toggle-border: rgba(0,0,0,0.12);
+  --toggle-color: rgba(26,37,21,0.7);
+  --nav-bg: rgba(247,249,244,0.78);
+  --nav-border: rgba(0,0,0,0.06);
+  --chip-bg: rgba(0,0,0,0.035);
+  --chip-border: rgba(0,0,0,0.09);
+  --chip-color: rgba(26,37,21,0.8);
+  --chip-bg-long: rgba(59,94,198,0.06);
+  --chip-border-long: rgba(59,94,198,0.25);
+  --footer-bg: #11160E;
+  --footer-border: rgba(255,255,255,0.08);
+  --footer-color: rgba(255,255,255,0.45);
+  --laurel-color: rgba(46,125,50,0.45);
+}
+
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Inter',sans-serif;
+  color: var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition: color 0.35s;
+}
+[data-theme="dark"] body{
+  background: radial-gradient(ellipse 120% 60% at 50% 0%, #142456 0%, #08122B 45%, #030A1A 100%);
+}
+[data-theme="light"] body{
+  background: radial-gradient(ellipse 120% 60% at 50% 0%, #E8F5E9 0%, #F1F8F1 45%, #F7FBF7 100%);
+}
+.bg-glow{
+  position:fixed; top:-220px; left:50%; transform:translateX(-50%);
+  width:900px; height:600px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+a{ color:inherit; text-decoration:none; }
+section{ position:relative; z-index:1; }
+
+/* NAVBAR */
+.navbar{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 32px;
+  background:var(--nav-bg); border-bottom:1px solid var(--nav-border);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  transition: background 0.35s, border-color 0.35s;
+}
+.nav-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-brand img{ width:42px; height:42px; object-fit:contain; }
+.nav-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem; letter-spacing:2px; color:var(--title-color); }
+.nav-brand .word span{ color:var(--gold); }
+.nav-links{ display:flex; align-items:center; gap:26px; }
+.nav-links a{ font-family:'Space Grotesk',sans-serif; font-size:0.8rem; font-weight:500; color:var(--sub-color); letter-spacing:0.3px; transition:color 0.2s; }
+.nav-links a:hover{ color:var(--gold); }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.nav-back{
+  display:flex; align-items:center; gap:6px;
+  font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:500;
+  color:var(--sub-color); padding:7px 14px; border-radius:20px;
+  border:1px solid var(--toggle-border); background:var(--toggle-bg);
+  transition: color 0.2s, border-color 0.2s, transform 0.15s;
+}
+.nav-back:hover{ color:var(--gold-soft); border-color:var(--gold); transform:translateY(-1px); }
+.nav-cta{
+  font-family:'Space Grotesk',sans-serif; font-size:0.8rem; font-weight:700;
+  padding:9px 18px; border-radius:10px;
+  background:linear-gradient(135deg, #D4AF37 0%, #A07820 100%);
+  color:#08122B; white-space:nowrap;
+  box-shadow:0 4px 16px rgba(201,168,76,0.25);
+  transition:opacity 0.2s, transform 0.15s;
+}
+[data-theme="light"] .nav-cta{ color:#F7FBF7; background:linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); }
+.nav-cta:hover{ opacity:0.9; transform:translateY(-1px); }
+.theme-toggle{
+  display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:20px;
+  border:1px solid var(--toggle-border); background:var(--toggle-bg); color:var(--toggle-color);
+  font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600;
+  cursor:pointer; transition:transform 0.15s;
+}
+.theme-toggle:hover{ transform:translateY(-1px); }
+.nav-burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px; }
+.nav-burger span{ width:22px; height:2px; background:var(--title-color); border-radius:1px; transition:0.25s; }
+.mobile-panel{
+  position:fixed; top:62px; left:0; right:0; z-index:199;
+  background:var(--nav-bg); border-bottom:1px solid var(--nav-border);
+  backdrop-filter:blur(16px);
+  display:flex; flex-direction:column; padding:10px 24px 18px; gap:4px;
+  transform:translateY(-12px); opacity:0; pointer-events:none;
+  transition:opacity 0.25s, transform 0.25s;
+}
+.mobile-panel.open{ transform:translateY(0); opacity:1; pointer-events:auto; }
+.mobile-panel a{ font-family:'Space Grotesk',sans-serif; font-size:0.95rem; font-weight:600; color:var(--title-color); padding:12px 4px; border-bottom:1px solid var(--row-border); }
+.mobile-panel .nav-cta{ text-align:center; margin-top:10px; border:none; }
+
+@media(max-width:880px){
+  .nav-links{ display:none; }
+  .nav-actions .nav-cta{ display:none; }
+  .nav-burger{ display:flex; }
+}
+
+/* HERO */
+.hero{ padding:150px 24px 90px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.hero-logo{
+  width:120px; height:120px; object-fit:contain; margin-bottom:26px;
+  filter:drop-shadow(0 12px 36px rgba(201,168,76,0.3));
+  animation: floatIn 0.9s ease both;
+}
+@keyframes floatIn{ from{opacity:0; transform:translateY(-18px) scale(0.92);} to{opacity:1; transform:translateY(0) scale(1);} }
+.hero-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--eyebrow-color); margin-bottom:18px; }
+.hero-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-1px; font-size:clamp(2.1rem, 5vw, 3.6rem); line-height:1.12; color:var(--title-color); max-width:780px; }
+.hero-title .accent{ color:var(--gold-soft); }
+.hero-sub{ margin-top:20px; max-width:560px; font-size:1.02rem; line-height:1.65; color:var(--sub-color); }
+.hero-actions{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; justify-content:center; }
+.btn-primary{
+  padding:15px 30px; border:none; border-radius:14px; cursor:pointer;
+  font-family:'Space Grotesk',sans-serif; font-size:0.95rem; font-weight:700; letter-spacing:0.3px;
+  background:linear-gradient(135deg, #D4AF37 0%, #A07820 100%); color:#08122B;
+  box-shadow:0 6px 24px rgba(201,168,76,0.3); transition:opacity 0.2s, transform 0.15s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+[data-theme="light"] .btn-primary{ color:#F7FBF7; background:linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); }
+.btn-primary:hover{ opacity:0.9; transform:translateY(-2px); }
+.btn-outline{
+  padding:15px 28px; border-radius:14px; border:1.5px solid var(--btn-sec-border);
+  background:transparent; color:var(--btn-sec-color); cursor:pointer;
+  font-family:'Space Grotesk',sans-serif; font-size:0.92rem; font-weight:600;
+  transition:border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover{ border-color:var(--btn-sec-border-h); color:var(--btn-sec-color-h); }
+.hero-stats{ display:flex; gap:46px; margin-top:64px; flex-wrap:wrap; justify-content:center; }
+.hstat{ text-align:center; }
+.hstat .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.7rem; color:var(--gold-soft); }
+.hstat .lab{ font-size:0.72rem; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+/* SECTION */
+.section{ padding:90px 24px; max-width:1140px; margin:0 auto; }
+.section-head{ text-align:center; max-width:640px; margin:0 auto 50px; }
+.section-eyebrow{ font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--eyebrow-color); margin-bottom:10px; }
+.section-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.4px; font-size:clamp(1.6rem, 3vw, 2.3rem); color:var(--title-color); }
+.section-sub{ margin-top:12px; font-size:0.95rem; color:var(--sub-color); line-height:1.6; }
+
+/* DIVIDER */
+.laurel-divider{ display:flex; align-items:center; justify-content:center; gap:14px; margin:0 auto; padding:0 0 10px; max-width:520px; }
+.laurel-divider svg{ width:64px; height:28px; opacity:0.9; }
+.laurel-divider .dot{ width:5px; height:5px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+
+/* PROGRAMMES */
+.prog-cols{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+@media(max-width:760px){ .prog-cols{ grid-template-columns:1fr; } }
+.prog-col{
+  background:var(--card-bg); border:1px solid var(--card-border); border-radius:20px;
+  padding:28px 26px; backdrop-filter:blur(16px); box-shadow:var(--shadow-box);
+}
+.prog-col h3{ font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:700; color:var(--title-color); margin-bottom:6px; }
+.prog-col p{ font-size:0.85rem; color:var(--sub-color); margin-bottom:18px; line-height:1.55; }
+.chip-wrap{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{ font-family:'Space Grotesk',sans-serif; font-size:0.76rem; font-weight:600; padding:8px 13px; border-radius:9px; background:var(--chip-bg); border:1px solid var(--chip-border); color:var(--chip-color); }
+.prog-col.long .chip{ background:var(--chip-bg-long); border-color:var(--chip-border-long); }
+
+/* ATOUTS */
+.atouts-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+@media(max-width:880px){ .atouts-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .atouts-grid{ grid-template-columns:1fr; } }
+.atout-card{
+  background:var(--card-bg); border:1px solid var(--card-border); border-radius:18px;
+  padding:26px 22px; backdrop-filter:blur(16px); transition:transform 0.2s, border-color 0.2s;
+}
+.atout-card:hover{ transform:translateY(-3px); border-color:var(--gold); }
+.atout-icon{ width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:var(--gold-dim); margin-bottom:16px; font-size:1.2rem; }
+.atout-card h4{ font-family:'Space Grotesk',sans-serif; font-size:0.98rem; font-weight:700; color:var(--title-color); margin-bottom:8px; }
+.atout-card p{ font-size:0.85rem; color:var(--sub-color); line-height:1.55; }
+
+/* TEMOIGNAGES */
+.temoi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+@media(max-width:880px){ .temoi-grid{ grid-template-columns:1fr; } }
+.temoi-card{ background:var(--card-bg); border:1px solid var(--card-border); border-radius:18px; padding:26px 24px; backdrop-filter:blur(16px); }
+.temoi-quote{ font-size:0.88rem; color:var(--sub-color); line-height:1.6; font-style:italic; }
+.temoi-foot{ display:flex; align-items:center; gap:10px; margin-top:18px; }
+.temoi-avatar{ width:38px; height:38px; border-radius:50%; background:var(--gold-dim); color:var(--gold-soft); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.85rem; }
+.temoi-name{ font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:700; color:var(--title-color); }
+.temoi-fil{ font-size:0.72rem; color:var(--muted); }
+.temoi-note{ text-align:center; font-size:0.78rem; color:var(--muted); margin-top:24px; }
+
+/* CTA BAND */
+.cta-band{
+  margin:0 24px; border-radius:24px; padding:56px 32px; text-align:center;
+  background:linear-gradient(135deg, rgba(201,168,76,0.14), rgba(108,127,216,0.10));
+  border:1px solid var(--card-border);
+  max-width:1092px; margin-left:auto; margin-right:auto;
+}
+[data-theme="light"] .cta-band{ background:linear-gradient(135deg, rgba(46,125,50,0.08), rgba(59,94,198,0.06)); }
+.cta-band h3{ font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; color:var(--title-color); margin-bottom:10px; }
+.cta-band p{ font-size:0.92rem; color:var(--sub-color); margin-bottom:24px; }
+
+/* CONTACT */
+.contact-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+@media(max-width:760px){ .contact-wrap{ grid-template-columns:1fr; } }
+.contact-card{ background:var(--card-bg); border:1px solid var(--card-border); border-radius:18px; padding:26px; backdrop-filter:blur(16px); }
+.contact-row{ display:flex; gap:14px; align-items:flex-start; margin-bottom:18px; }
+.contact-row:last-child{ margin-bottom:0; }
+.contact-icon{ width:36px; height:36px; border-radius:10px; background:var(--gold-dim); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+.contact-row h5{ font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:700; color:var(--title-color); margin-bottom:2px; }
+.contact-row p{ font-size:0.83rem; color:var(--sub-color); }
+.contact-form .field{ margin-bottom:14px; }
+.contact-form label{ display:block; font-size:0.7rem; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:var(--label-color); margin-bottom:6px; }
+.contact-form input, .contact-form textarea{
+  width:100%; padding:12px 14px; border-radius:11px; border:1.5px solid var(--card-border);
+  background:var(--chip-bg); color:var(--title-color); font-family:'Inter',sans-serif; font-size:0.9rem;
+  outline:none; resize:vertical; transition:border 0.2s;
+}
+.contact-form input:focus, .contact-form textarea:focus{ border-color:var(--gold); }
+
+/* FOOTER */
+footer{ background:var(--footer-bg); border-top:1px solid var(--footer-border); padding:50px 24px 26px; position:relative; z-index:1; }
+.footer-grid{ max-width:1140px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; }
+@media(max-width:700px){ .footer-grid{ grid-template-columns:1fr; gap:28px; } }
+.footer-brand{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.footer-brand img{ width:34px; height:34px; object-fit:contain; }
+.footer-brand .word{ font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; letter-spacing:2px; font-size:0.98rem; }
+.footer-brand .word span{ color:var(--gold); }
+footer p.tag{ font-size:0.82rem; color:var(--footer-color); max-width:280px; line-height:1.6; }
+.footer-col h6{ font-family:'Space Grotesk',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#fff; margin-bottom:14px; }
+.footer-col a{ display:block; font-size:0.84rem; color:var(--footer-color); margin-bottom:10px; transition:color 0.2s; }
+.footer-col a:hover{ color:var(--gold-soft); }
+.footer-bottom{ max-width:1140px; margin:34px auto 0; padding-top:20px; border-top:1px solid var(--footer-border); font-size:0.75rem; color:var(--footer-color); text-align:center; }
+
+/* REVEAL */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+@media(prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ transition:none; opacity:1; transform:none; }
+  .hero-logo{ animation:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <img src="logo.png" alt="Logo Excellence">
+    <span class="word">EXCELLENC<span>E</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#accueil">Accueil</a>
+    <a href="filieres.html" target="_blank" class="btn-outline">Voir les filières</a>
+    <a href="#atouts">Pourquoi nous</a>
+    <a href="#temoignages">Témoignages</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html" class="nav-back">← Tous les concours</a>
+    <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">Mode clair</span></button>
+    <a href="simulateur.html" class="nav-cta">📐 Étude de dossier</a>
+  </div>
+  <button class="nav-burger" onclick="toggleBurger()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#accueil" onclick="closeBurger()">Accueil</a>
+  <a href="#programmes" onclick="closeBurger()">Programmes</a>
+  <a href="#atouts" onclick="closeBurger()">Pourquoi nous</a>
+  <a href="#temoignages" onclick="closeBurger()">Témoignages</a>
+  <a href="#contact" onclick="closeBurger()">Contact</a>
+  <a href="index.html" onclick="closeBurger()">← Tous les concours</a>
+  <a href="simulateur.html" class="nav-cta" onclick="closeBurger()">📐 Étude de dossier</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <img src="logo.png" alt="Excellence Prépa" class="hero-logo">
+  <div class="hero-eyebrow">Concours INP-HB · Côte d'Ivoire</div>
+  <h1 class="hero-title">Le concours INP-HB se <span class="accent">prépare</span>.<br>Il ne se subit pas.</h1>
+  <p class="hero-sub">EXCELLENCE accompagne les élèves de Seconde, Première et Terminale dans la construction de leur dossier et leur préparation aux concours des grandes écoles ivoiriennes.</p>
+  <div class="hero-actions">
+    <a href="simulateur.html" class="btn-primary">📐 Calculer mon dossier</a>
+    <a href="filieres.html" class="btn-outline">Voir les filières</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="num">16</div><div class="lab">Filières couvertes</div></div>
+    <div class="hstat"><div class="num">3</div><div class="lab">Années évaluées</div></div>
+    <div class="hstat"><div class="num">12+</div><div class="lab">Séries de Bac prises en charge</div></div>
+  </div>
+</section>
+
+<div class="laurel-divider reveal">
+  <svg viewBox="0 0 60 28" fill="none"><path d="M28 24C20 22 8 16 4 4C12 4 22 10 26 18" stroke="var(--laurel-color)" stroke-width="1.4"/><path d="M28 24C20 22 8 16 4 4" stroke="var(--laurel-color)" stroke-width="1.4"/></svg>
+  <div class="dot"></div>
+  <svg viewBox="0 0 60 28" fill="none" style="transform:scaleX(-1)"><path d="M28 24C20 22 8 16 4 4C12 4 22 10 26 18" stroke="var(--laurel-color)" stroke-width="1.4"/><path d="M28 24C20 22 8 16 4 4" stroke="var(--laurel-color)" stroke-width="1.4"/></svg>
+</div>
+
+<!-- ATOUTS -->
+<section class="section" id="atouts">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Pourquoi EXCELLENCE</div>
+    <h2 class="section-title">Une préparation rigoureuse, filière par filière</h2>
+  </div>
+  <div class="atouts-grid">
+    <div class="atout-card reveal">
+      <div class="atout-icon">📊</div>
+      <h4>Simulateur de dossier exclusif</h4>
+      <p>Calculez en temps réel votre moyenne générale et vos scores par filière, selon le barème exact de l'INP-HB.</p>
+    </div>
+    <div class="atout-card reveal">
+      <div class="atout-icon">🧭</div>
+      <h4>Orientation par série</h4>
+      <p>Chaque série de Bac ouvre des filières différentes : nous vous aidons à cibler afin de maximiser vos chances au concours.</p>
+    </div>
+    <div class="atout-card reveal">
+      <div class="atout-icon">📚</div>
+      <h4>Suivi sur 3 années</h4>
+      <p>Le dossier se construit dès la classe de Seconde : un accompagnement pensé sur la durée, pas seulement en Terminale.</p>
+    </div>
+    <div class="atout-card reveal">
+      <div class="atout-icon">🧑‍🏫</div>
+      <h4>Encadrement de proximité</h4>
+      <p>Un suivi individualisé par matière, avec des enseignants qui connaissent les exigences précises du concours.</p>
+    </div>
+    <div class="atout-card reveal">
+      <div class="atout-icon">🗂️</div>
+      <h4>Toutes les séries couvertes</h4>
+      <p>Séries générales, techniques et brevets de technicien : chaque profil a son propre parcours de préparation.</p>
+    </div>
+    <div class="atout-card reveal">
+      <div class="atout-icon">📍</div>
+      <h4>Basé à Abidjan</h4>
+      <p>Des cours de préparation en présentiel et en ligne.</p>
+    </div>
+  </div>
+</section>
+
+<div class="laurel-divider reveal">
+  <svg viewBox="0 0 60 28" fill="none"><path d="M28 24C20 22 8 16 4 4C12 4 22 10 26 18" stroke="var(--laurel-color)" stroke-width="1.4"/><path d="M28 24C20 22 8 16 4 4" stroke="var(--laurel-color)" stroke-width="1.4"/></svg>
+  <div class="dot"></div>
+  <svg viewBox="0 0 60 28" fill="none" style="transform:scaleX(-1)"><path d="M28 24C20 22 8 16 4 4C12 4 22 10 26 18" stroke="var(--laurel-color)" stroke-width="1.4"/><path d="M28 24C20 22 8 16 4 4" stroke="var(--laurel-color)" stroke-width="1.4"/></svg>
+</div>
+
+<!-- TEMOIGNAGES -->
+<section class="section" id="temoignages">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Témoignages</div>
+    <h2 class="section-title">Ce qu'en disent nos élèves</h2>
+  </div>
+  <div class="temoi-grid">
+    <div class="temoi-card reveal">
+      <div class="temoi-quote">« Texte du témoignage à insérer ici. »</div>
+      <div class="temoi-foot">
+        <div class="temoi-avatar">??</div>
+        <div><div class="temoi-name">Nom de l'élève</div><div class="temoi-fil">Filière obtenue</div></div>
+      </div>
+    </div>
+    <div class="temoi-card reveal">
+      <div class="temoi-quote">« Texte du témoignage à insérer ici. »</div>
+      <div class="temoi-foot">
+        <div class="temoi-avatar">??</div>
+        <div><div class="temoi-name">Nom de l'élève</div><div class="temoi-fil">Filière obtenue</div></div>
+      </div>
+    </div>
+    <div class="temoi-card reveal">
+      <div class="temoi-quote">« Texte du témoignage à insérer ici. »</div>
+      <div class="temoi-foot">
+        <div class="temoi-avatar">??</div>
+        <div><div class="temoi-name">Nom de l'élève</div><div class="temoi-fil">Filière obtenue</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="temoi-note">À remplacer par les vrais retours de vos élèves avant publication.</div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal">
+  <h3>Prêt à connaître vos chances ?</h3>
+  <p>Renseignez vos notes et obtenez instantanément votre score pour chaque filière accessible.</p>
+  <a href="simulateur.html" class="btn-primary">Lancer le simulateur →</a>
+</div>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Contact</div>
+    <h2 class="section-title">Parlons de votre préparation</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-card reveal">
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <div><h5>Adresse</h5><p>Abidjan, Côte d'Ivoire</p></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📞</div>
+        <div><h5>Téléphone</h5><p>+225 00 00 00 00 00</p></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">✉️</div>
+        <div><h5>Email</h5><p>contact@excellence-prepa.ci</p></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🕐</div>
+        <div><h5>Horaires</h5><p>Lundi – Samedi, 8h – 18h</p></div>
+      </div>
+    </div>
+    <div class="contact-card contact-form reveal">
+      <div class="field"><label>Nom complet</label><input placeholder="Votre nom"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="votre@email.com"></div>
+      <div class="field"><label>Message</label><textarea rows="4" placeholder="Votre message..."></textarea></div>
+      <button class="btn-primary" style="width:100%; justify-content:center;" onclick="alert('Formulaire à connecter à votre messagerie.')">Envoyer</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="logo.png" alt="Logo Excellence">
+        <span class="word">EXCELLENC<span>E</span></span>
+      </div>
+      <p class="tag">Prépa grandes écoles à Abidjan, dédiée à la réussite du concours INP-HB.</p>
+    </div>
+    <div class="footer-col">
+      <h6>Navigation</h6>
+      <a href="#accueil">Accueil</a>
+      <a href="#atouts">Pourquoi nous</a>
+      <a href="#temoignages">Témoignages</a>
+    </div>
+    <div class="footer-col">
+      <h6>Ressources</h6>
+      <a href="simulateur.html">Simulateur de dossier</a>
+      <a href="index.html">← Tous les concours</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 EXCELLENCE — Prépa Grandes Écoles. Tous droits réservés.</div>
+</footer>
+
+<script>
+function initTheme(){
+  const saved = localStorage.getItem("inphb_theme") || "dark";
+  setTheme(saved);
+}
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("themeIcon").textContent = t === "dark" ? "🌙" : "☀️";
+  document.getElementById("themeLabel").textContent = t === "dark" ? "Mode clair" : "Mode sombre";
+  localStorage.setItem("inphb_theme", t);
+}
+function toggleTheme(){
+  setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+}
+function toggleBurger(){ document.getElementById("mobilePanel").classList.toggle("open"); }
+function closeBurger(){ document.getElementById("mobilePanel").classList.remove("open"); }
+
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); });
+},{ threshold:0.15 });
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+initTheme();
+</script>
+</body>
+</html>
