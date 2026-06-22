@@ -110,12 +110,6 @@ body::before{
   font-weight:400;
 }
 
-.divider{
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-  margin:20px 0;
-}
-
 .field{ margin-bottom:14px; }
 .field label{
   display:block;
@@ -219,6 +213,7 @@ body::before{
   background:rgba(108,127,216,0.12);
 }
 
+/* ── Matière bloc ── */
 .mat-bloc{ margin-bottom:24px; }
 .mat-nom{
   font-family:'Space Grotesk',sans-serif;
@@ -240,6 +235,7 @@ body::before{
   border-radius:2px;
 }
 
+/* ── MGD section ── */
 .mgd-section{ margin-bottom:6px; }
 .mgd-section .section-label{
   font-size:0.7rem;
@@ -250,6 +246,7 @@ body::before{
   margin-bottom:10px;
 }
 
+/* ── Result bubble ── */
 .result-bubble{
   margin:16px 0 8px;
   padding:14px 20px;
@@ -271,6 +268,38 @@ body::before{
   font-size:0.85rem;
 }
 
+/* ── Page 3 : résumé matières ── */
+.mat-summary{
+  margin:16px 0 8px;
+  padding:14px 18px;
+  border-radius:14px;
+  background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,0.25);
+  display:none;
+}
+.mat-summary.visible{ display:block; }
+.mat-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.mat-summary-row:last-child{ border-bottom:none; }
+.mat-summary-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.82rem;
+  font-weight:500;
+  color:var(--muted);
+}
+.mat-summary-score{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  color:var(--gold-soft);
+}
+
+/* ── Page 4 results ── */
 .cycle-section{ margin-bottom:20px; }
 .cycle-label{
   font-family:'Space Grotesk',sans-serif;
@@ -313,8 +342,11 @@ body::before{
   font-size:1.1rem;
   font-weight:700;
   color:var(--gold-soft);
+  white-space:nowrap;
+  margin-left:12px;
 }
 
+/* ── Buttons ── */
 .btn-primary{
   width:100%;
   padding:14px;
@@ -360,6 +392,7 @@ body::before{
   .gcol input{ padding:11px 2px; font-size:0.8rem; }
   .gcol-label{ font-size:0.56rem; }
   .card-title{ font-size:1.25rem; }
+  .filiere-formule{ display:none; }
 }
 </style>
 </head>
@@ -393,7 +426,7 @@ body::before{
 
   <div class="field">
     <label>Série du Baccalauréat</label>
-    <select id="serie">
+    <select id="serie" onchange="serieActive=null;">
       <optgroup label="Séries générales">
         <option>A1</option>
         <option>A2</option>
@@ -477,14 +510,15 @@ body::before{
 <div id="p3" class="card">
   <div class="card-header">
     <div class="card-eyebrow">Étape 3 / 4</div>
-    <div class="card-title">Calcul de la moyenne d'étude de dossier par matière</div>
-    <div class="card-sub">Renseignez vos notes par matière</div>
+    <div class="card-title">Moyennes par matière</div>
+    <div class="card-sub">Saisissez vos notes — la moyenne par matière est calculée automatiquement</div>
   </div>
 
   <div id="mat"></div>
 
-  <button class="btn-primary" onclick="calcMat()">Calculer les moyennes</button>
-  <div id="matRes" class="result-bubble"></div>
+  <div id="matSummary" class="mat-summary"></div>
+
+  <div id="matError" class="result-bubble error-bubble"></div>
 
   <div class="btn-row" style="margin-top:14px;">
     <button class="btn-secondary" onclick="go(2)">← Retour</button>
@@ -496,11 +530,11 @@ body::before{
 <div id="p4" class="card">
   <div class="card-header">
     <div class="card-eyebrow">Résultats · Étude de dossier</div>
-    <div class="card-title">Calcul de la moyenne d'étude de dossier par filière</div>
+    <div class="card-title">Moyennes par filière</div>
+    <div class="card-sub">Calculées selon votre série et vos notes</div>
   </div>
 
-  <button class="btn-primary" onclick="calcFilieres()">Afficher les résultats</button>
-  <div id="res" style="margin-top:20px;"></div>
+  <div id="res"></div>
 
   <div class="btn-row" style="margin-top:14px;">
     <button class="btn-secondary" onclick="go(3)">← Retour</button>
@@ -508,9 +542,14 @@ body::before{
 </div>
 
 <script>
-let bacGlobal=0, mgdGlobal=0;
+let bacGlobal = 0;
+let mgdGlobal = 0;
+let moyMatières = {};
+let serieActive = null; // série pour laquelle la page 3 a été construite
 
-/* ── Progress ── */
+/* ══════════════════════════════════════════
+   PROGRESS & NAVIGATION
+══════════════════════════════════════════ */
 function updateProg(n){
   for(let i=1;i<=4;i++){
     let d=document.getElementById("d"+i);
@@ -520,7 +559,6 @@ function updateProg(n){
   }
 }
 
-/* ── Navigation ── */
 function go(n){
   if(n>1&&document.getElementById("btn1").disabled){go(1);return;}
   if(n>2&&document.getElementById("btn2").disabled){go(2);return;}
@@ -529,9 +567,12 @@ function go(n){
   document.getElementById("p"+n).classList.add("active");
   updateProg(n);
   if(n===3) buildMat();
+  if(n===4) renderFilieres();
 }
 
-/* ── Page 1 ── */
+/* ══════════════════════════════════════════
+   PAGE 1 — BAC
+══════════════════════════════════════════ */
 function calcBac(){
   let p=document.getElementById("points");
   let v=+p.value;
@@ -549,7 +590,9 @@ function calcBac(){
   document.getElementById("btn1").disabled=false;
 }
 
-/* ── Page 2 ── */
+/* ══════════════════════════════════════════
+   PAGE 2 — MGD
+══════════════════════════════════════════ */
 function calcMGD(){
   let s2=document.getElementById("s2");
   let s1=document.getElementById("s1");
@@ -569,110 +612,159 @@ function calcMGD(){
   document.getElementById("btn2").disabled=false;
 }
 
-/* ── Matières par série ── */
+/* ══════════════════════════════════════════
+   PAGE 3 — MATIÈRES
+══════════════════════════════════════════ */
 const labelsMat={
   Fr:"Français", Ang:"Anglais", Maths:"Mathématiques",
-  PC:"Sciences Physiques", SVT:"SVT", MT:"Maths Techniques",
-  ScEco:"Sciences Économiques"
+  PC:"Sciences Physiques", SVT:"SVT",
+  MT:"Maths Techniques", ScEco:"Sciences Économiques"
 };
 
-function getM(){
+function getMatières(){
   let s=document.getElementById("serie").value;
-  if(s==="A1"||s==="A2") return ["Fr","Ang","Maths"];
-  if(s==="B") return ["Fr","Ang","Maths","ScEco","MT"];
-  if(s==="C"||s==="D") return ["Fr","Ang","Maths","PC","SVT"];
-  if(s==="G2") return ["Fr","Ang","Maths","MT"];
-  if(s==="BTCOMPTA") return ["Fr","Ang","Maths","MT"];
-  if(s==="E"||s==="F1"||s==="F2"||s==="F3"||s==="F4") return ["Fr","Ang","Maths","PC","MT"];
-  if(s==="F7"||s==="BTAGRO-INDUS") return ["Fr","Ang","Maths","PC","SVT","MT"];
-  if(s==="BTSTIC"||s==="BTSTGI"||s==="BTGC"||s==="BTMP"||s==="BTCGP") return ["Fr","Ang","Maths","PC","MT"];
+  if(s==="A1"||s==="A2")                         return ["Fr","Ang","Maths"];
+  if(s==="B")                                     return ["Fr","Ang","Maths","ScEco","MT"];
+  if(s==="C"||s==="D")                            return ["Fr","Ang","Maths","PC","SVT"];
+  if(s==="G2"||s==="BTCOMPTA")                    return ["Fr","Ang","Maths","MT"];
+  if(s==="E"||s==="F1"||s==="F2"||s==="F3"||s==="F4"||
+     s==="BTSTIC"||s==="BTSTGI"||s==="BTGC"||s==="BTMP"||s==="BTCGP")
+                                                  return ["Fr","Ang","Maths","PC","MT"];
+  if(s==="F7"||s==="BTAGRO-INDUS")               return ["Fr","Ang","Maths","PC","SVT","MT"];
   return ["Fr","Ang","Maths"];
 }
 
 function buildMat(){
-  let m=getM();
+  let s=document.getElementById("serie").value;
+  // Si la série n'a pas changé, on garde le DOM et les valeurs intactes
+  if(s===serieActive) return;
+  serieActive=s;
+
+  let mats=getMatières();
   let c=document.getElementById("mat");
   c.innerHTML="";
-  m.forEach(x=>{
+  moyMatières={};
+  hide("matError");
+  document.getElementById("matSummary").classList.remove("visible");
+  document.getElementById("btn3").disabled=true;
+
+  mats.forEach(x=>{
     c.innerHTML+=`
     <div class="mat-bloc">
       <div class="mat-nom">${labelsMat[x]||x}</div>
       <div class="grid-4">
         <div class="gcol">
           <div class="gcol-label">2<sup>nd</sup><span>coef 2</span></div>
-          <input type="number" min="0" max="20" step="0.01" id="${x}s2" placeholder="0 – 20">
+          <input type="number" min="0" max="20" step="0.01" id="${x}s2" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
         </div>
         <div class="gcol">
           <div class="gcol-label">1<sup>ère</sup><span>coef 3</span></div>
-          <input type="number" min="0" max="20" step="0.01" id="${x}s1" placeholder="0 – 20">
+          <input type="number" min="0" max="20" step="0.01" id="${x}s1" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
         </div>
         <div class="gcol">
           <div class="gcol-label">T<sup>le</sup><span>coef 5</span></div>
-          <input type="number" min="0" max="20" step="0.01" id="${x}t1" placeholder="0 – 20">
+          <input type="number" min="0" max="20" step="0.01" id="${x}t1" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
         </div>
         <div class="gcol bac">
           <div class="gcol-label">Note Bac</div>
-          <input type="number" min="0" max="20" step="0.01" id="${x}bac" placeholder="0 – 20">
+          <input type="number" min="0" max="20" step="0.01" id="${x}bac" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
         </div>
       </div>
+      <div id="${x}res" style="
+        margin-top:6px;
+        font-family:'Space Grotesk',sans-serif;
+        font-size:0.78rem;
+        font-weight:600;
+        color:var(--muted);
+        text-align:right;
+        min-height:18px;
+        transition:color 0.2s;
+      "></div>
     </div>`;
   });
-  hide("matRes");
-  document.getElementById("btn3").disabled=true;
 }
 
-function calcMatiere(x){
+// Calcule et affiche la moyenne d'une matière en temps réel
+function autoCalcMat(x){
   let s2=document.getElementById(x+"s2");
   let s1=document.getElementById(x+"s1");
   let t1=document.getElementById(x+"t1");
   let bac=document.getElementById(x+"bac");
-  if(!s2||!s1||!t1||!bac) return null;
+  let res=document.getElementById(x+"res");
+  if(!s2||!s1||!t1||!bac||!res) return;
+
   [s2,s1,t1,bac].forEach(el=>el.classList.remove("error"));
+
+  let allFilled = s2.value!==""&&s1.value!==""&&t1.value!==""&&bac.value!=="";
+  if(!allFilled){ res.textContent=""; delete moyMatières[x]; checkAllMats(); return; }
+
   let invalid=false;
   [s2,s1,t1,bac].forEach(el=>{
-    if(el.value===""||+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
+    if(+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
   });
-  if(invalid) return null;
-  return ((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(+bac.value*3))/13;
+  if(invalid){ res.textContent="Valeur invalide"; res.style.color="var(--error)"; delete moyMatières[x]; checkAllMats(); return; }
+
+  let moy=((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(+bac.value*3))/13;
+  moyMatières[x]=moy;
+  res.textContent="Moy. : "+moy.toFixed(2);
+  res.style.color="var(--gold-soft)";
+  checkAllMats();
 }
 
-function calcMat(){
-  let m=getM(); let r=""; let err=false;
-  m.forEach(x=>{
-    let v=calcMatiere(x);
-    if(v===null) err=true;
-    else r+=(labelsMat[x]||x)+" : "+v.toFixed(2)+"  ";
-  });
-  if(err){
-    showError("matRes","Notes invalides — vérifiez que toutes les valeurs sont entre 0 et 20");
-    document.getElementById("btn3").disabled=true;
-  } else {
-    showBubble("matRes",r.trim());
+// Vérifie si toutes les matières sont remplies → active le bouton et affiche le résumé
+function checkAllMats(){
+  let mats=getMatières();
+  let allOk=mats.every(x=> moyMatières[x]!==undefined);
+
+  if(allOk){
     document.getElementById("btn3").disabled=false;
+    renderMatSummary(mats);
+    hide("matError");
+  } else {
+    document.getElementById("btn3").disabled=true;
+    document.getElementById("matSummary").classList.remove("visible");
   }
 }
 
-/* ── Filières par série ── */
+function renderMatSummary(mats){
+  let s=document.getElementById("matSummary");
+  s.innerHTML=mats.map(x=>`
+    <div class="mat-summary-row">
+      <span class="mat-summary-name">${labelsMat[x]||x}</span>
+      <span class="mat-summary-score">${moyMatières[x].toFixed(2)}</span>
+    </div>`).join("");
+  s.classList.add("visible");
+}
+
+/* ══════════════════════════════════════════
+   PAGE 4 — FILIÈRES
+══════════════════════════════════════════ */
+
+// Filières accessibles par série
 const filByS={
-  A1:       {courts:["GAE"],                                               longs:["ECG","LSA"]},
-  A2:       {courts:["GAE"],                                               longs:["ECG","LSA"]},
-  B:        {courts:["GAE","FCA"],                                         longs:["ECG"]},
-  C:        {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"], longs:["ECG","LSA","BCPST","MPSI","PCSI","MP2I"]},
-  D:        {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"], longs:["ECG","LSA","BCPST","PCSI"]},
-  E:        {courts:["STGI","GC","MG","PME","TSAERO"],                    longs:["MPSI","PCSI","MP2I"]},
-  F1:       {courts:["STGI","TSAERO"],                                     longs:[]},
-  F2:       {courts:["STIC","STGI","TSAERO"],                              longs:[]},
-  F3:       {courts:["STGI","TSAERO"],                                     longs:[]},
-  F4:       {courts:["GC"],                                                longs:[]},
-  F7:       {courts:["TSA"],                                               longs:[]},
-  G2:       {courts:["FCA"],                                               longs:[]},
-  BTCOMPTA:    {courts:["FCA"],         longs:[]},
-  BTSTIC:      {courts:["STIC"],        longs:[]},
-  BTSTGI:      {courts:["STGI"],        longs:[]},
-  BTGC:        {courts:["GC"],          longs:[]},
-  BTMP:        {courts:["MG","PME"],    longs:[]},
-  BTCGP:       {courts:["CGP"],         longs:[]},
-  "BTAGRO-INDUS": {courts:["TSA"],      longs:[]}
+  A1:          {courts:["GAE"],                                                            longs:["ECG","LSA"]},
+  A2:          {courts:["GAE"],                                                            longs:["ECG","LSA"]},
+  B:           {courts:["GAE","FCA"],                                                      longs:["ECG"]},
+  C:           {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"],  longs:["ECG","LSA","BCPST","MPSI","PCSI","MP2I"]},
+  D:           {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"],  longs:["ECG","LSA","BCPST","PCSI"]},
+  E:           {courts:["STGI","GC","MG","PME","TSAERO"],                                 longs:["MPSI","PCSI","MP2I"]},
+  F1:          {courts:["STGI","TSAERO"],                                                  longs:[]},
+  F2:          {courts:["STIC","STGI","TSAERO"],                                           longs:[]},
+  F3:          {courts:["STGI","TSAERO"],                                                  longs:[]},
+  F4:          {courts:["GC"],                                                             longs:[]},
+  F7:          {courts:["TSA"],                                                            longs:[]},
+  G2:          {courts:["FCA"],                                                            longs:[]},
+  BTCOMPTA:    {courts:["FCA"],                                                            longs:[]},
+  BTSTIC:      {courts:["STIC"],                                                           longs:[]},
+  BTSTGI:      {courts:["STGI"],                                                           longs:[]},
+  BTGC:        {courts:["GC"],                                                             longs:[]},
+  BTMP:        {courts:["MG","PME"],                                                       longs:[]},
+  BTCGP:       {courts:["CGP"],                                                            longs:[]},
+  "BTAGRO-INDUS":{courts:["TSA"],                                                          longs:[]}
 };
 
 const filLabels={
@@ -694,94 +786,112 @@ const filLabels={
   MP2I:   "MP2I — Mathématiques, physique, ingénierie et informatique"
 };
 
+// Vérifie que toutes les matières requises sont disponibles
+function ok(...keys){
+  return keys.every(k => moyMatières[k] !== undefined && !isNaN(moyMatières[k]));
+}
+
 function scoreFiliere(f){
   let s=document.getElementById("serie").value;
-  let fr=calcMatiere("Fr"), ang=calcMatiere("Ang"), ma=calcMatiere("Maths"),
-      pc=calcMatiere("PC"), svt=calcMatiere("SVT"), mt=calcMatiere("MT"),
-      sceco=calcMatiere("ScEco");
+  let m=moyMatières;
 
-  if(f==="GAE"){
-    if(fr===null||ang===null||ma===null) return null;
-    return (fr*2+ang*2+ma*3)/7;
-  }
-  if(f==="FCA"){
-    if(fr===null||ang===null||ma===null||mt===null) return null;
-    return (fr*2+ang*2+ma*3+mt*3)/10;
-  }
-  if(f==="ECG"){
-    if(s==="B"){
-      if(fr===null||ang===null||ma===null||sceco===null) return null;
-      return (fr*3+ang*3+ma*5+sceco*5)/16;
-    }
-    if(fr===null||ang===null||ma===null) return null;
-    return (fr*3+ang*3+ma*5)/11;
-  }
-  if(f==="LSA"){
-    if(fr===null||ang===null||ma===null) return null;
-    return (fr*3+ang*3+ma*5)/11;
-  }
-  if(f==="BCPST"){
-    if(fr===null||ang===null||ma===null||pc===null||svt===null) return null;
-    return (fr+ang+ma*3+pc*3+svt*3)/11;
-  }
-  if(f==="TSA"){
-    if(fr===null||ang===null||ma===null||pc===null||svt===null) return null;
-    return (fr+ang+ma*2+pc*2+svt*2)/8;
-  }
-  if(f==="STIC"||f==="STGI"||f==="GC"||f==="MG"||f==="PME"||f==="CGP"||f==="TSAERO"){
-    if(fr===null||ang===null||ma===null||pc===null||mt===null) return null;
-    return (fr+ang+ma*2+pc*2+mt*3)/9;
-  }
-  if(f==="MPSI"||f==="PCSI"||f==="MP2I"){
-    if(s==="E"){
-      if(fr===null||ang===null||ma===null||pc===null||mt===null) return null;
-      return (fr+ang+ma*4+pc*4+mt*2)/12;
-    }
-    if(fr===null||ang===null||ma===null||pc===null) return null;
-    return (fr+ang+ma*4+pc*4)/10;
+  switch(f){
+    case "GAE":
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*2 + m.Ang*2 + m.Maths*3) / 7;
+
+    case "FCA":
+      if(!ok("Fr","Ang","Maths","MT")) return null;
+      return (m.Fr*2 + m.Ang*2 + m.Maths*3 + m.MT*3) / 10;
+
+    case "ECG":
+      if(s==="B"){
+        if(!ok("Fr","Ang","Maths","ScEco")) return null;
+        return (m.Fr*3 + m.Ang*3 + m.Maths*5 + m.ScEco*5) / 16;
+      }
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*3 + m.Ang*3 + m.Maths*5) / 11;
+
+    case "LSA":
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*3 + m.Ang*3 + m.Maths*5) / 11;
+
+    case "BCPST":
+      if(!ok("Fr","Ang","Maths","PC","SVT")) return null;
+      return (m.Fr + m.Ang + m.Maths*3 + m.PC*3 + m.SVT*3) / 11;
+
+    case "TSA":
+      if(s==="F7"||s==="BTAGRO-INDUS"){
+        if(!ok("Fr","Ang","Maths","PC","SVT","MT")) return null;
+        return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.SVT*2 + m.MT*2) / 10;
+      }
+      if(!ok("Fr","Ang","Maths","PC","SVT")) return null;
+      return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.SVT*2) / 8;
+
+    case "STIC":
+    case "STGI":
+    case "GC":
+    case "MG":
+    case "PME":
+    case "CGP":
+    case "TSAERO":
+      if(s==="C"||s==="D"){
+        if(!ok("Fr","Ang","Maths","PC")) return null;
+        return (m.Fr + m.Ang + m.Maths*2 + m.PC*2) / 6;
+      }
+      if(!ok("Fr","Ang","Maths","PC","MT")) return null;
+      return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.MT*3) / 9;
+
+    case "MPSI":
+    case "MP2I":
+    case "PCSI":
+      if(s==="E"){
+        if(!ok("Fr","Ang","Maths","PC","MT")) return null;
+        return (m.Fr + m.Ang + m.Maths*4 + m.PC*4 + m.MT*2) / 12;
+      }
+      if(!ok("Fr","Ang","Maths","PC")) return null;
+      return (m.Fr + m.Ang + m.Maths*4 + m.PC*4) / 10;
   }
   return null;
 }
 
-function calcFilieres(){
+function renderFilieres(){
   let s=document.getElementById("serie").value;
   let data=filByS[s]||{courts:[],longs:[]};
-  let all=[...data.courts,...data.longs];
   let resDiv=document.getElementById("res");
 
-  let miss=false;
-  all.forEach(f=>{if(scoreFiliere(f)===null) miss=true;});
-
-  if(miss){
-    resDiv.innerHTML=`<div class="result-bubble error-bubble visible">
-      ❌ Merci de renseigner toutes les moyennes par matière avant d'afficher les résultats.
-    </div>`;
-    return;
-  }
-
-  function renderRows(arr){
-    return arr.map(f=>`
+  function makeRow(f){
+    let score=scoreFiliere(f);
+    if(score===null||score===undefined) return "";
+    return `
       <div class="filiere-row">
         <div class="filiere-name">${filLabels[f]||f}</div>
-        <div class="filiere-score">${scoreFiliere(f).toFixed(2)}</div>
-      </div>`).join("");
+        <div class="filiere-score">${score.toFixed(2)}</div>
+      </div>`;
   }
 
   let html="";
-  if(data.courts.length) html+=`<div class="cycle-section"><div class="cycle-label">Cycles Courts</div>${renderRows(data.courts)}</div>`;
-  if(data.longs.length)  html+=`<div class="cycle-section"><div class="cycle-label">Cycles Longs</div>${renderRows(data.longs)}</div>`;
+  if(data.courts.length){
+    html+=`<div class="cycle-section">
+      <div class="cycle-label">Cycles Courts</div>
+      ${data.courts.map(makeRow).join("")}
+    </div>`;
+  }
+  if(data.longs.length){
+    html+=`<div class="cycle-section">
+      <div class="cycle-label">Cycles Longs</div>
+      ${data.longs.map(makeRow).join("")}
+    </div>`;
+  }
   resDiv.innerHTML=html;
 }
 
-/* ── Helpers ── */
+/* ══════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════ */
 function showBubble(id,txt){
   let el=document.getElementById(id);
   el.className="result-bubble visible";
-  el.textContent=txt;
-}
-function showError(id,txt){
-  let el=document.getElementById(id);
-  el.className="result-bubble error-bubble visible";
   el.textContent=txt;
 }
 function hide(id){
