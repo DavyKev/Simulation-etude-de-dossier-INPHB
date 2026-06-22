@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCELLENCE INP-HB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+/* ── DARK THEME (default) ── */
+:root, [data-theme="dark"]{
+  --gold:      #C9A84C;
+  --gold-soft: #E8CB7A;
+  --gold-dim:  rgba(201,168,76,0.18);
+  --navy:      #08122B;
+  --navy-mid:  #0E1D3F;
+  --navy-card: rgba(14,29,63,0.65);
+  --glass:     rgba(255,255,255,0.055);
+  --glass-b:   rgba(255,255,255,0.10);
+  --blue-acc:  #6C7FD8;
+  --blue-dim:  rgba(108,127,216,0.15);
+  --white:     #FFFFFF;
+  --muted:     rgba(255,255,255,0.45);
+  --error:     #E05757;
+  --body-bg:   transparent;
+  --body-before-bg: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+  --card-bg:   rgba(14,29,63,0.65);
+  --card-border: rgba(255,255,255,0.09);
+  --input-bg:  rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.10);
+  --input-color: #FFFFFF;
+  --input-placeholder: rgba(255,255,255,0.22);
+  --select-opt-bg: #0E1D3F;
+  --label-color: rgba(255,255,255,0.45);
+  --title-color: #FFFFFF;
+  --sub-color:   rgba(255,255,255,0.45);
+  --eyebrow-color: #C9A84C;
+  --divider-bg:  linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  --mat-nom-color: #E8CB7A;
+  --cycle-label-color: rgba(255,255,255,0.45);
+  --cycle-after-bg: rgba(255,255,255,0.1);
+  --row-bg:    rgba(255,255,255,0.055);
+  --row-bg-h:  rgba(255,255,255,0.10);
+  --row-border: rgba(255,255,255,0.07);
+  --filiere-name: #FFFFFF;
+  --filiere-score: #E8CB7A;
+  --mgd-label: rgba(255,255,255,0.45);
+  --btn-sec-border: rgba(255,255,255,0.12);
+  --btn-sec-color:  rgba(255,255,255,0.45);
+  --btn-sec-border-h: rgba(255,255,255,0.3);
+  --btn-sec-color-h: #FFFFFF;
+  --result-bubble-bg: rgba(201,168,76,0.18);
+  --result-bubble-border: rgba(201,168,76,0.25);
+  --result-bubble-color: #E8CB7A;
+  --shadow-box: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.08) inset;
+  --gcol-bac-border: rgba(108,127,216,0.4);
+  --gcol-bac-bg: rgba(108,127,216,0.15);
+  --gcol-bac-color: #BCC8FF;
+  --gcol-bac-label: #9AAAF5;
+  --gcol-bac-focus-border: #6C7FD8;
+  --gcol-bac-focus-bg: rgba(108,127,216,0.12);
+  --toggle-bg:  rgba(255,255,255,0.08);
+  --toggle-border: rgba(255,255,255,0.15);
+  --toggle-color: rgba(255,255,255,0.7);
+  --banner-bg:  rgba(201,168,76,0.12);
+  --banner-border: rgba(201,168,76,0.3);
+  --banner-color: #E8CB7A;
+}
+
+/* ── LIGHT THEME ── */
+[data-theme="light"]{
+  --gold:      #B8860B;
+  --gold-soft: #8A6500;
+  --gold-dim:  rgba(184,134,11,0.10);
+  --navy:      #F7F9F4;
+  --navy-mid:  #EEF2E8;
+  --navy-card: rgba(255,255,255,0.90);
+  --glass:     rgba(0,0,0,0.03);
+  --glass-b:   rgba(0,0,0,0.055);
+  --blue-acc:  #3B5EC6;
+  --blue-dim:  rgba(59,94,198,0.10);
+  --white:     #1A2515;
+  --muted:     rgba(26,37,21,0.5);
+  --error:     #C0392B;
+  --body-bg:   transparent;
+  --body-before-bg: radial-gradient(ellipse, rgba(52,168,83,0.10) 0%, transparent 70%);
+  --card-bg:   rgba(255,255,255,0.90);
+  --card-border: rgba(0,0,0,0.07);
+  --input-bg:  rgba(0,0,0,0.03);
+  --input-border: rgba(0,0,0,0.12);
+  --input-color: #1A2515;
+  --input-placeholder: rgba(26,37,21,0.3);
+  --select-opt-bg: #FFFFFF;
+  --label-color: rgba(26,37,21,0.5);
+  --title-color: #1A2515;
+  --sub-color:   rgba(26,37,21,0.5);
+  --eyebrow-color: #2E7D32;
+  --divider-bg:  linear-gradient(90deg, transparent, rgba(46,125,50,0.3), transparent);
+  --mat-nom-color: #2E7D32;
+  --cycle-label-color: rgba(26,37,21,0.45);
+  --cycle-after-bg: rgba(0,0,0,0.1);
+  --row-bg:    rgba(0,0,0,0.03);
+  --row-bg-h:  rgba(0,0,0,0.055);
+  --row-border: rgba(0,0,0,0.07);
+  --filiere-name: #1A2515;
+  --filiere-score: #2E7D32;
+  --mgd-label: rgba(26,37,21,0.5);
+  --btn-sec-border: rgba(0,0,0,0.12);
+  --btn-sec-color:  rgba(26,37,21,0.5);
+  --btn-sec-border-h: rgba(0,0,0,0.3);
+  --btn-sec-color-h: #1A2515;
+  --result-bubble-bg: rgba(46,125,50,0.08);
+  --result-bubble-border: rgba(46,125,50,0.25);
+  --result-bubble-color: #2E7D32;
+  --shadow-box: 0 8px 40px rgba(0,0,0,0.10), 0 0 0 1px rgba(46,125,50,0.08) inset;
+  --gcol-bac-border: rgba(59,94,198,0.3);
+  --gcol-bac-bg: rgba(59,94,198,0.07);
+  --gcol-bac-color: #3B5EC6;
+  --gcol-bac-label: #3B5EC6;
+  --gcol-bac-focus-border: #3B5EC6;
+  --gcol-bac-focus-bg: rgba(59,94,198,0.10);
+  --toggle-bg:  rgba(0,0,0,0.05);
+  --toggle-border: rgba(0,0,0,0.12);
+  --toggle-color: rgba(26,37,21,0.7);
+  --banner-bg:  rgba(46,125,50,0.08);
+  --banner-border: rgba(46,125,50,0.3);
+  --banner-color: #2E7D32;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background: var(--body-bg);
+  color: var(--white);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  transition: color 0.35s;
+}
+
+/* Body background */
+[data-theme="dark"] body{
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #142456 0%, #08122B 55%, #030A1A 100%);
+}
+[data-theme="light"] body{
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #E8F5E9 0%, #F1F8F1 55%, #F7FBF7 100%);
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  top:-200px; left:50%;
+  transform:translateX(-50%);
+  width:700px; height:500px;
+  background: var(--body-before-bg);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── Theme toggle ── */
+.theme-toggle{
+  position:fixed;
+  top:16px; right:16px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 14px;
+  border-radius:20px;
+  border:1px solid var(--toggle-border);
+  background:var(--toggle-bg);
+  color:var(--toggle-color);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;
+  font-weight:600;
+  cursor:pointer;
+  transition: background 0.3s, border 0.3s, color 0.3s, transform 0.15s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.theme-toggle:hover{ transform:translateY(-1px); }
+.theme-toggle .icon{ font-size:1rem; transition: transform 0.4s; }
+.theme-toggle:hover .icon{ transform: rotate(20deg); }
+
+/* ── Resume banner ── */
+.resume-banner{
+  width:100%;
+  max-width:640px;
+  display:none;
+  margin-bottom:16px;
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid var(--banner-border);
+  background:var(--banner-bg);
+  z-index:1;
+  animation: fadeUp 0.3s ease both;
+}
+.resume-banner.visible{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.resume-banner-text{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.82rem;
+  font-weight:600;
+  color:var(--banner-color);
+}
+.resume-banner-btns{ display:flex; gap:8px; }
+.resume-btn{
+  padding:6px 16px;
+  border-radius:10px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;
+  font-weight:700;
+  cursor:pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  border:none;
+}
+.resume-btn:hover{ transform:translateY(-1px); opacity:0.9; }
+.resume-btn.yes{
+  background: linear-gradient(135deg, #D4AF37 0%, #A07820 100%);
+  color:#08122B;
+}
+[data-theme="light"] .resume-btn.yes{ color:#1A2515; }
+.resume-btn.yes[data-theme="light"]{ color:#F7FBF7; }
+.resume-btn.no{
+  background: transparent;
+  border:1.5px solid var(--btn-sec-border);
+  color:var(--btn-sec-color);
+}
+
+/* ── Progress ── */
+.progress{
+  display:flex;
+  gap:8px;
+  margin-bottom:28px;
+  z-index:1;
+}
+.step-dot{
+  width:32px; height:4px;
+  border-radius:2px;
+  background:rgba(128,128,128,0.2);
+  transition:background 0.35s;
+}
+[data-theme="dark"] .step-dot{ background:rgba(255,255,255,0.15); }
+[data-theme="light"] .step-dot{ background:rgba(0,0,0,0.12); }
+.step-dot.active{ background:var(--gold); }
+.step-dot.done{
+  background:rgba(201,168,76,0.45);
+}
+[data-theme="light"] .step-dot.done{ background:rgba(46,125,50,0.35); }
+
+/* ── Card ── */
+.card{
+  width:100%;
+  max-width:640px;
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:24px;
+  border:1px solid var(--card-border);
+  padding:36px 32px 28px;
+  display:none;
+  z-index:1;
+  box-shadow: var(--shadow-box);
+  animation: fadeUp 0.3s ease both;
+  transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.active{ display:block; }
+
+.card-header{
+  text-align:center;
+  margin-bottom:28px;
+}
+.card-eyebrow{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--eyebrow-color);
+  margin-bottom:8px;
+  transition: color 0.35s;
+}
+.card-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.55rem;
+  font-weight:700;
+  letter-spacing:-0.3px;
+  color:var(--title-color);
+  transition: color 0.35s;
+}
+.card-sub{
+  font-size:0.82rem;
+  color:var(--sub-color);
+  margin-top:6px;
+  font-weight:400;
+  transition: color 0.35s;
+}
+
+.divider{
+  height:1px;
+  background: var(--divider-bg);
+  margin:20px 0;
+}
+
+.field{ margin-bottom:14px; }
+.field label{
+  display:block;
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--label-color);
+  margin-bottom:6px;
+  transition: color 0.35s;
+}
+.field input, .field select{
+  width:100%;
+  padding:13px 16px;
+  border-radius:12px;
+  border:1.5px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--input-color);
+  font-family:'Inter',sans-serif;
+  font-size:0.95rem;
+  outline:none;
+  transition:border 0.2s, background 0.2s, color 0.35s;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.field input:focus, .field select:focus{
+  border-color:var(--gold);
+  background:var(--gold-dim);
+}
+.field input::placeholder{ color:var(--input-placeholder); }
+.field input.error{
+  border-color:var(--error) !important;
+  box-shadow:0 0 0 3px rgba(224,87,87,0.18);
+}
+.field select option{ background:var(--select-opt-bg); color:var(--input-color); }
+.field select optgroup{ background:var(--select-opt-bg); color:var(--eyebrow-color); font-style:normal; font-size:0.75rem; }
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:6px;
+}
+.gcol{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:6px;
+}
+.gcol-label{
+  font-size:0.63rem;
+  font-weight:700;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--mgd-label);
+  text-align:center;
+  line-height:1.4;
+  transition: color 0.35s;
+}
+.gcol-label span{
+  display:block;
+  font-size:0.58rem;
+  color:var(--sub-color);
+  font-weight:400;
+  letter-spacing:0;
+}
+.gcol input{
+  width:100%;
+  padding:14px 4px;
+  border-radius:12px;
+  border:1.5px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--input-color);
+  font-family:'Inter',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+  text-align:center;
+  outline:none;
+  transition:border 0.2s, background 0.2s, color 0.35s;
+}
+.gcol input:focus{
+  border-color:var(--gold);
+  background:var(--gold-dim);
+}
+.gcol input::placeholder{
+  color:var(--input-placeholder);
+  font-weight:400;
+  font-size:0.78rem;
+}
+.gcol input.error{
+  border-color:var(--error) !important;
+  box-shadow:0 0 0 3px rgba(224,87,87,0.15);
+}
+
+.gcol.bac .gcol-label{ color:var(--gcol-bac-label); }
+.gcol.bac input{
+  border-color:var(--gcol-bac-border);
+  background:var(--gcol-bac-bg);
+  color:var(--gcol-bac-color);
+}
+.gcol.bac input:focus{
+  border-color:var(--gcol-bac-focus-border);
+  background:var(--gcol-bac-focus-bg);
+}
+
+.mat-bloc{ margin-bottom:24px; }
+.mat-nom{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.78rem;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--mat-nom-color);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition: color 0.35s;
+}
+.mat-nom::before{
+  content:'';
+  display:inline-block;
+  width:3px; height:14px;
+  background:var(--gold);
+  border-radius:2px;
+}
+
+.mgd-section{ margin-bottom:6px; }
+.mgd-section .section-label{
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:var(--mgd-label);
+  margin-bottom:10px;
+  transition: color 0.35s;
+}
+
+.result-bubble{
+  margin:16px 0 8px;
+  padding:14px 20px;
+  border-radius:14px;
+  background:var(--result-bubble-bg);
+  border:1px solid var(--result-bubble-border);
+  text-align:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--result-bubble-color);
+  display:none;
+  transition: background 0.35s, border-color 0.35s, color 0.35s;
+}
+.result-bubble.visible{ display:block; }
+.result-bubble.error-bubble{
+  background:rgba(224,87,87,0.12);
+  border-color:rgba(224,87,87,0.3);
+  color:#F08080;
+  font-size:0.85rem;
+}
+
+.cycle-section{ margin-bottom:20px; }
+.cycle-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.68rem;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--cycle-label-color);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition: color 0.35s;
+}
+.cycle-label::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--cycle-after-bg);
+}
+.filiere-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  border-radius:12px;
+  background:var(--row-bg);
+  border:1px solid var(--row-border);
+  margin-bottom:8px;
+  transition:background 0.2s;
+}
+.filiere-row:hover{ background:var(--row-bg-h); }
+.filiere-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.92rem;
+  font-weight:600;
+  color:var(--filiere-name);
+  transition: color 0.35s;
+}
+.filiere-score{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--filiere-score);
+  transition: color 0.35s;
+}
+
+.btn-primary{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg, #D4AF37 0%, #A07820 100%);
+  color:#08122B;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  letter-spacing:0.5px;
+  cursor:pointer;
+  transition:opacity 0.2s, transform 0.15s;
+  box-shadow:0 4px 20px rgba(201,168,76,0.25);
+}
+[data-theme="light"] .btn-primary{ color:#F7FBF7; background:linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); box-shadow:0 4px 20px rgba(46,125,50,0.25); }
+.btn-primary:hover:not(:disabled){ opacity:0.9; transform:translateY(-1px); }
+.btn-primary:disabled{ opacity:0.35; cursor:not-allowed; transform:none; }
+
+.btn-secondary{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:1.5px solid var(--btn-sec-border);
+  border-radius:14px;
+  background:transparent;
+  color:var(--btn-sec-color);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.88rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover{ border-color:var(--btn-sec-border-h); color:var(--btn-sec-color-h); }
+
+.btn-row{ display:flex; gap:10px; margin-top:4px; }
+.btn-row .btn-secondary{ margin-top:0; }
+.btn-row .btn-primary{ margin-top:0; }
+
+@media(max-width:480px){
+  .card{ padding:28px 18px 22px; border-radius:20px; }
+  .grid-4{ gap:6px; }
+  .gcol input{ padding:11px 2px; font-size:0.8rem; }
+  .gcol-label{ font-size:0.56rem; }
+  .card-title{ font-size:1.25rem; }
+  .theme-toggle .label{ display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+  <span class="icon" id="themeIcon">🌙</span>
+  <span class="label" id="themeLabel">Mode clair</span>
+</button>
+
+<!-- Resume banner -->
+<div class="resume-banner" id="resumeBanner">
+  <div class="resume-banner-text">💾 Voulez-vous reprendre là où vous en étiez ?</div>
+  <div class="resume-banner-btns">
+    <button class="resume-btn yes" onclick="resumeSession()">Oui, reprendre</button>
+    <button class="resume-btn no" onclick="clearSession()">Non, recommencer</button>
+  </div>
+</div>
+
+<div class="progress" id="prog">
+  <div class="step-dot active" id="d1"></div>
+  <div class="step-dot" id="d2"></div>
+  <div class="step-dot" id="d3"></div>
+  <div class="step-dot" id="d4"></div>
+</div>
+
+<!-- ===== PAGE 1 ===== -->
+<div id="p1" class="card active">
+  <div class="card-header">
+    <div class="card-eyebrow">Étude de dossier · INP-HB</div>
+    <div class="card-title">Informations générales</div>
+    <div class="card-sub">Renseignez votre profil pour commencer</div>
+  </div>
+
+  <div class="field">
+    <label>Nom & Prénom</label>
+    <input id="nom" placeholder="Ex : Koné Aminata">
+  </div>
+
+  <div class="field">
+    <label>Âge</label>
+    <input id="age" type="number" placeholder="Ex : 18">
+  </div>
+
+  <div class="field">
+    <label>Série du Baccalauréat</label>
+    <select id="serie">
+      <optgroup label="Séries générales">
+        <option>A1</option>
+        <option>A2</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+      </optgroup>
+      <optgroup label="Séries techniques F">
+        <option>E</option>
+        <option>F1</option>
+        <option>F2</option>
+        <option>F3</option>
+        <option>F4</option>
+        <option>F7</option>
+      </optgroup>
+      <optgroup label="Brevet de Technicien">
+        <option>BTCOMPTA</option>
+        <option>BTCGP</option>
+        <option>BTGC</option>
+        <option>BTMP</option>
+        <option>BTSTIC</option>
+        <option>BTSTGI</option>
+        <option>BTAGRO-INDUS</option>
+      </optgroup>
+      <optgroup label="Autres">
+        <option>G2</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Points Bac <span style="color:var(--muted);font-weight:400;">(0 – 400)</span></label>
+    <input id="points" type="number" placeholder="Ex : 280">
+  </div>
+
+  <button class="btn-primary" onclick="calcBac()">Calculer la moyenne Bac</button>
+  <div id="bacResult" class="result-bubble"></div>
+  <button id="btn1" class="btn-primary" disabled onclick="go(2)" style="margin-top:10px;">Continuer →</button>
+</div>
+
+<!-- ===== PAGE 2 ===== -->
+<div id="p2" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Étape 2 / 4</div>
+    <div class="card-title">Calcul de la moyenne générale d'étude de dossier</div>
+    <div class="card-sub">Renseignez vos moyennes annuelles</div>
+  </div>
+
+  <div class="mgd-section">
+    <div class="section-label">Moyenne de classe — 3 années</div>
+    <div class="grid-4">
+      <div class="gcol">
+        <div class="gcol-label">2<sup>nd</sup><span>coef 2</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="s2" placeholder="0 – 20">
+      </div>
+      <div class="gcol">
+        <div class="gcol-label">1<sup>ère</sup><span>coef 3</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="s1" placeholder="0 – 20">
+      </div>
+      <div class="gcol">
+        <div class="gcol-label">T<sup>le</sup><span>coef 5</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="t1" placeholder="0 – 20">
+      </div>
+      <div class="gcol bac">
+        <div class="gcol-label">Note Bac</div>
+        <input type="number" min="0" max="20" step="0.01" id="mgdbac" placeholder="0 – 20" readonly>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="calcMGD()">Calculer le MGD</button>
+  <div id="mgdRes" class="result-bubble"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(1)">← Retour</button>
+    <button id="btn2" class="btn-primary" disabled onclick="go(3)">Continuer →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 3 ===== -->
+<div id="p3" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Étape 3 / 4</div>
+    <div class="card-title">Calcul de la moyenne d'étude de dossier par matière</div>
+    <div class="card-sub">Renseignez vos notes par matière</div>
+  </div>
+
+  <div id="mat"></div>
+
+  <button class="btn-primary" onclick="calcMat()">Calculer les moyennes</button>
+  <div id="matRes" class="result-bubble"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(2)">← Retour</button>
+    <button id="btn3" class="btn-primary" disabled onclick="go(4)">Voir les résultats →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 4 ===== -->
+<div id="p4" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Résultats · Étude de dossier</div>
+    <div class="card-title">Calcul de la moyenne d'étude de dossier par filière</div>
+  </div>
+
+  <button class="btn-primary" onclick="calcFilieres()">Afficher les résultats</button>
+  <div id="res" style="margin-top:20px;"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(3)">← Retour</button>
+  </div>
+</div>
+
+<script>
+let bacGlobal=0, mgdGlobal=0;
+const LS_KEY = "inphb_session_v1";
+const LS_THEME = "inphb_theme";
+
+/* ── Theme ── */
+function initTheme(){
+  const saved = localStorage.getItem(LS_THEME) || "dark";
+  setTheme(saved, false);
+}
+function setTheme(t, animate){
+  document.documentElement.setAttribute("data-theme", t);
+  const icon = document.getElementById("themeIcon");
+  const label = document.getElementById("themeLabel");
+  if(t === "dark"){
+    icon.textContent = "🌙";
+    label.textContent = "Mode clair";
+  } else {
+    icon.textContent = "☀️";
+    label.textContent = "Mode sombre";
+  }
+  localStorage.setItem(LS_THEME, t);
+}
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute("data-theme");
+  setTheme(cur === "dark" ? "light" : "dark", true);
+}
+
+/* ── LocalStorage Save/Restore ── */
+function collectState(){
+  const mats = {};
+  const m = getM();
+  m.forEach(x => {
+    ["s2","s1","t1","bac"].forEach(k => {
+      const el = document.getElementById(x+k);
+      if(el) mats[x+k] = el.value;
+    });
+  });
+  return {
+    nom: document.getElementById("nom").value,
+    age: document.getElementById("age").value,
+    serie: document.getElementById("serie").value,
+    points: document.getElementById("points").value,
+    bacGlobal,
+    s2: document.getElementById("s2").value,
+    s1: document.getElementById("s1").value,
+    t1: document.getElementById("t1").value,
+    mgdbac: document.getElementById("mgdbac").value,
+    mgdGlobal,
+    mats,
+    btn1_ok: !document.getElementById("btn1").disabled,
+    btn2_ok: !document.getElementById("btn2").disabled,
+    btn3_ok: !document.getElementById("btn3").disabled,
+  };
+}
+
+function saveState(){
+  try {
+    const st = collectState();
+    localStorage.setItem(LS_KEY, JSON.stringify(st));
+  } catch(e){}
+}
+
+function hasSavedState(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return false;
+    const st = JSON.parse(raw);
+    return st && (st.nom || st.points);
+  } catch(e){ return false; }
+}
+
+function resumeSession(){
+  document.getElementById("resumeBanner").classList.remove("visible");
+  try {
+    const st = JSON.parse(localStorage.getItem(LS_KEY));
+    if(!st) return;
+    // Restore page 1
+    document.getElementById("nom").value = st.nom || "";
+    document.getElementById("age").value = st.age || "";
+    document.getElementById("serie").value = st.serie || "C";
+    document.getElementById("points").value = st.points || "";
+    bacGlobal = parseFloat(st.bacGlobal) || 0;
+    if(st.btn1_ok){
+      showBubble("bacResult","Moyenne Bac : "+bacGlobal.toFixed(2));
+      document.getElementById("btn1").disabled = false;
+    }
+    // Restore page 2
+    document.getElementById("s2").value = st.s2 || "";
+    document.getElementById("s1").value = st.s1 || "";
+    document.getElementById("t1").value = st.t1 || "";
+    document.getElementById("mgdbac").value = st.mgdbac || "";
+    mgdGlobal = parseFloat(st.mgdGlobal) || 0;
+    if(st.btn2_ok){
+      showBubble("mgdRes","MGD : "+mgdGlobal.toFixed(2));
+      document.getElementById("btn2").disabled = false;
+    }
+    // Restore page 3 - build mat then fill
+    buildMat();
+    if(st.mats){
+      Object.entries(st.mats).forEach(([k,v]) => {
+        const el = document.getElementById(k);
+        if(el) el.value = v;
+      });
+    }
+    if(st.btn3_ok){
+      document.getElementById("btn3").disabled = false;
+    }
+    // Navigate to furthest unlocked page
+    if(st.btn3_ok) go(4);
+    else if(st.btn2_ok) go(3);
+    else if(st.btn1_ok) go(2);
+    else go(1);
+  } catch(e){ console.warn("Restore failed", e); }
+}
+
+function clearSession(){
+  localStorage.removeItem(LS_KEY);
+  document.getElementById("resumeBanner").classList.remove("visible");
+}
+
+/* ── Auto-save on input change ── */
+document.addEventListener("input", () => saveState());
+document.addEventListener("change", () => saveState());
+
+/* ── Progress ── */
+function updateProg(n){
+  for(let i=1;i<=4;i++){
+    let d=document.getElementById("d"+i);
+    d.className="step-dot";
+    if(i<n) d.classList.add("done");
+    else if(i===n) d.classList.add("active");
+  }
+}
+
+/* ── Navigation ── */
+function go(n){
+  if(n>1&&document.getElementById("btn1").disabled){go(1);return;}
+  if(n>2&&document.getElementById("btn2").disabled){go(2);return;}
+  if(n>3&&document.getElementById("btn3").disabled){go(3);return;}
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+  updateProg(n);
+  if(n===3) buildMat();
+  saveState();
+}
+
+/* ── Page 1 ── */
+function calcBac(){
+  let p=document.getElementById("points");
+  let v=+p.value;
+  if(p.value===""||v<0||v>400){
+    p.classList.add("error");
+    hide("bacResult");
+    document.getElementById("btn1").disabled=true;
+    return;
+  }
+  p.classList.remove("error");
+  bacGlobal=v/20;
+  showBubble("bacResult","Moyenne Bac : "+bacGlobal.toFixed(2));
+  let mb=document.getElementById("mgdbac");
+  if(mb) mb.value=bacGlobal.toFixed(2);
+  document.getElementById("btn1").disabled=false;
+  saveState();
+}
+
+/* ── Page 2 ── */
+function calcMGD(){
+  let s2=document.getElementById("s2");
+  let s1=document.getElementById("s1");
+  let t1=document.getElementById("t1");
+  [s2,s1,t1].forEach(el=>el.classList.remove("error"));
+  let invalid=false;
+  [s2,s1,t1].forEach(el=>{
+    if(el.value===""||+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
+  });
+  if(invalid){
+    hide("mgdRes");
+    document.getElementById("btn2").disabled=true;
+    return;
+  }
+  mgdGlobal=((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(bacGlobal*3))/13;
+  showBubble("mgdRes","MGD : "+mgdGlobal.toFixed(2));
+  document.getElementById("btn2").disabled=false;
+  saveState();
+}
+
+/* ── Matières par série ── */
+const labelsMat={
+  Fr:"Français", Ang:"Anglais", Maths:"Mathématiques",
+  PC:"Sciences Physiques", SVT:"SVT", MT:"Maths Techniques",
+  ScEco:"Sciences Économiques"
+};
+
+function getM(){
+  let s=document.getElementById("serie").value;
+  if(s==="A1"||s==="A2") return ["Fr","Ang","Maths"];
+  if(s==="B") return ["Fr","Ang","Maths","ScEco","MT"];
+  if(s==="C"||s==="D") return ["Fr","Ang","Maths","PC","SVT"];
+  if(s==="G2") return ["Fr","Ang","Maths","MT"];
+  if(s==="BTCOMPTA") return ["Fr","Ang","Maths","MT"];
+  if(s==="E"||s==="F1"||s==="F2"||s==="F3"||s==="F4") return ["Fr","Ang","Maths","PC","MT"];
+  if(s==="F7"||s==="BTAGRO-INDUS") return ["Fr","Ang","Maths","PC","SVT","MT"];
+  if(s==="BTSTIC"||s==="BTSTGI"||s==="BTGC"||s==="BTMP"||s==="BTCGP") return ["Fr","Ang","Maths","PC","MT"];
+  return ["Fr","Ang","Maths"];
+}
+
+function buildMat(){
+  let m=getM();
+  let c=document.getElementById("mat");
+  c.innerHTML="";
+  m.forEach(x=>{
+    c.innerHTML+=`
+    <div class="mat-bloc">
+      <div class="mat-nom">${labelsMat[x]||x}</div>
+      <div class="grid-4">
+        <div class="gcol">
+          <div class="gcol-label">2<sup>nd</sup><span>coef 2</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}s2" placeholder="0 – 20">
+        </div>
+        <div class="gcol">
+          <div class="gcol-label">1<sup>ère</sup><span>coef 3</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}s1" placeholder="0 – 20">
+        </div>
+        <div class="gcol">
+          <div class="gcol-label">T<sup>le</sup><span>coef 5</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}t1" placeholder="0 – 20">
+        </div>
+        <div class="gcol bac">
+          <div class="gcol-label">Note Bac</div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}bac" placeholder="0 – 20">
+        </div>
+      </div>
+    </div>`;
+  });
+  hide("matRes");
+  document.getElementById("btn3").disabled=true;
+}
+
+function calcMatiere(x){
+  let s2=document.getElementById(x+"s2");
+  let s1=document.getElementById(x+"s1");
+  let t1=document.getElementById(x+"t1");
+  let bac=document.getElementById(x+"bac");
+  if(!s2||!s1||!t1||!bac) return null;
+  [s2,s1,t1,bac].forEach(el=>el.classList.remove("error"));
+  let invalid=false;
+  [s2,s1,t1,bac].forEach(el=>{
+    if(el.value===""||+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
+  });
+  if(invalid) return null;
+  return ((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(+bac.value*3))/13;
+}
+
+function calcMat(){
+  let m=getM(); let r=""; let err=false;
+  m.forEach(x=>{
+    let v=calcMatiere(x);
+    if(v===null) err=true;
+    else r+=(labelsMat[x]||x)+" : "+v.toFixed(2)+"  ";
+  });
+  if(err){
+    showError("matRes","Notes invalides — vérifiez que toutes les valeurs sont entre 0 et 20");
+    document.getElementById("btn3").disabled=true;
+  } else {
+    showBubble("matRes",r.trim());
+    document.getElementById("btn3").disabled=false;
+    saveState();
+  }
+}
+
+/* ── Filières par série ── */
+const filByS={
+  A1:       {courts:["GAE"],                                               longs:["ECG","LSA"]},
+  A2:       {courts:["GAE"],                                               longs:["ECG","LSA"]},
+  B:        {courts:["GAE","FCA"],                                         longs:["ECG"]},
+  C:        {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"], longs:["ECG","LSA","BCPST","MPSI","PCSI","MP2I"]},
+  D:        {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"], longs:["ECG","LSA","BCPST","PCSI"]},
+  E:        {courts:["STGI","GC","MG","PME","TSAERO"],                    longs:["MPSI","PCSI","MP2I"]},
+  F1:       {courts:["STGI","TSAERO"],                                     longs:[]},
+  F2:       {courts:["STIC","STGI","TSAERO"],                              longs:[]},
+  F3:       {courts:["STGI","TSAERO"],                                     longs:[]},
+  F4:       {courts:["GC"],                                                longs:[]},
+  F7:       {courts:["TSA"],                                               longs:[]},
+  G2:       {courts:["FCA"],                                               longs:[]},
+  BTCOMPTA:    {courts:["FCA"],         longs:[]},
+  BTSTIC:      {courts:["STIC"],        longs:[]},
+  BTSTGI:      {courts:["STGI"],        longs:[]},
+  BTGC:        {courts:["GC"],          longs:[]},
+  BTMP:        {courts:["MG","PME"],    longs:[]},
+  BTCGP:       {courts:["CGP"],         longs:[]},
+  "BTAGRO-INDUS": {courts:["TSA"],      longs:[]}
+};
+
+const filLabels={
+  GAE:    "GAE — Gestion et administration des entreprises",
+  FCA:    "FCA — Finance, comptabilité et assurance",
+  STIC:   "STIC — Sciences et technologies de l'information et de la communication",
+  STGI:   "STGI — Sciences et technologies du génie industriel",
+  GC:     "GC — Génie civil",
+  MG:     "MG — Mines et géologie",
+  PME:    "PME — Pétrole et maintenance des équipements",
+  CGP:    "CGP — Chimie et génie des procédés",
+  TSAERO: "TSAERO — Techniciens supérieurs en aéronautique",
+  TSA:    "TSA — Techniciens supérieurs en agronomie",
+  ECG:    "ECG — Économique et commerciale générale",
+  LSA:    "LSA — Littéraire et scientifique appliqués",
+  BCPST:  "BCPST — Biologie, chimie, physique et sciences de la terre",
+  MPSI:   "MPSI — Mathématiques, physique et sciences de l'ingénieur",
+  PCSI:   "PCSI — Physique, chimie et sciences de l'ingénieur",
+  MP2I:   "MP2I — Mathématiques, physique, ingénierie et informatique"
+};
+
+function scoreFiliere(f){
+  let s=document.getElementById("serie").value;
+  let fr=calcMatiere("Fr"), ang=calcMatiere("Ang"), ma=calcMatiere("Maths"),
+      pc=calcMatiere("PC"), svt=calcMatiere("SVT"), mt=calcMatiere("MT"),
+      sceco=calcMatiere("ScEco");
+
+  if(f==="GAE"){
+    if(fr===null||ang===null||ma===null) return null;
+    return (fr*2+ang*2+ma*3)/7;
+  }
+  if(f==="FCA"){
+    if(fr===null||ang===null||ma===null||mt===null) return null;
+    return (fr*2+ang*2+ma*3+mt*3)/10;
+  }
+  if(f==="ECG"){
+    if(s==="B"){
+      if(fr===null||ang===null||ma===null||sceco===null) return null;
+      return (fr*3+ang*3+ma*5+sceco*5)/16;
+    }
+    if(fr===null||ang===null||ma===null) return null;
+    return (fr*3+ang*3+ma*5)/11;
+  }
+  if(f==="LSA"){
+    if(fr===null||ang===null||ma===null) return null;
+    return (fr*3+ang*3+ma*5)/11;
+  }
+  if(f==="BCPST"){
+    if(fr===null||ang===null||ma===null||pc===null||svt===null) return null;
+    return (fr+ang+ma*3+pc*3+svt*3)/11;
+  }
+  if(f==="TSA"){
+    if(fr===null||ang===null||ma===null||pc===null||svt===null) return null;
+    return (fr+ang+ma*2+pc*2+svt*2)/8;
+  }
+  if(f==="STIC"||f==="STGI"||f==="GC"||f==="MG"||f==="PME"||f==="CGP"||f==="TSAERO"){
+    if(fr===null||ang===null||ma===null||pc===null||mt===null) return null;
+    return (fr+ang+ma*2+pc*2+mt*3)/9;
+  }
+  if(f==="MPSI"||f==="PCSI"||f==="MP2I"){
+    if(s==="E"){
+      if(fr===null||ang===null||ma===null||pc===null||mt===null) return null;
+      return (fr+ang+ma*4+pc*4+mt*2)/12;
+    }
+    if(fr===null||ang===null||ma===null||pc===null) return null;
+    return (fr+ang+ma*4+pc*4)/10;
+  }
+  return null;
+}
+
+function calcFilieres(){
+  let s=document.getElementById("serie").value;
+  let data=filByS[s]||{courts:[],longs:[]};
+  let all=[...data.courts,...data.longs];
+  let resDiv=document.getElementById("res");
+
+  let miss=false;
+  all.forEach(f=>{if(scoreFiliere(f)===null) miss=true;});
+
+  if(miss){
+    resDiv.innerHTML=`<div class="result-bubble error-bubble visible">
+      ❌ Merci de renseigner toutes les moyennes par matière avant d'afficher les résultats.
+    </div>`;
+    return;
+  }
+
+  function renderRows(arr){
+    return arr.map(f=>`
+      <div class="filiere-row">
+        <div class="filiere-name">${filLabels[f]||f}</div>
+        <div class="filiere-score">${scoreFiliere(f).toFixed(2)}</div>
+      </div>`).join("");
+  }
+
+  let html="";
+  if(data.courts.length) html+=`<div class="cycle-section"><div class="cycle-label">Cycles Courts</div>${renderRows(data.courts)}</div>`;
+  if(data.longs.length)  html+=`<div class="cycle-section"><div class="cycle-label">Cycles Longs</div>${renderRows(data.longs)}</div>`;
+  resDiv.innerHTML=html;
+}
+
+/* ── Helpers ── */
+function showBubble(id,txt){
+  let el=document.getElementById(id);
+  el.className="result-bubble visible";
+  el.textContent=txt;
+}
+function showError(id,txt){
+  let el=document.getElementById(id);
+  el.className="result-bubble error-bubble visible";
+  el.textContent=txt;
+}
+function hide(id){
+  let el=document.getElementById(id);
+  if(el) el.className="result-bubble";
+}
+
+/* ── Init ── */
+window.addEventListener("DOMContentLoaded",()=>{
+  initTheme();
+  if(bacGlobal>0){
+    let mb=document.getElementById("mgdbac");
+    if(mb) mb.value=bacGlobal.toFixed(2);
+  }
+  // Show resume banner if saved state exists
+  if(hasSavedState()){
+    document.getElementById("resumeBanner").classList.add("visible");
+  }
+});
+</script>
+
+</body>
+</html>
