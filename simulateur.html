@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCELLENCE INP-HB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+:root, [data-theme="dark"]{
+  --gold:       #C9A84C;
+  --gold-soft:  #E8CB7A;
+  --gold-dim:   rgba(201,168,76,0.18);
+  --blue-acc:   #6C7FD8;
+  --blue-dim:   rgba(108,127,216,0.15);
+  --error:      #E05757;
+  --white:      #FFFFFF;
+  --muted:      rgba(255,255,255,0.45);
+  --card-bg:    rgba(14,29,63,0.65);
+  --card-border:rgba(255,255,255,0.09);
+  --glass:      rgba(255,255,255,0.055);
+  --glass-b:    rgba(255,255,255,0.10);
+  --input-bg:   rgba(255,255,255,0.05);
+  --input-border:rgba(255,255,255,0.10);
+  --label-color:rgba(255,255,255,0.45);
+  --title-color:#FFFFFF;
+  --sub-color:  rgba(255,255,255,0.45);
+  --eyebrow-color:#C9A84C;
+  --shadow-box: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.08) inset;
+  --dot-bg:     rgba(255,255,255,0.15);
+  --mat-res-color: var(--muted);
+  --filiere-row-bg: rgba(255,255,255,0.055);
+  --filiere-row-hover: rgba(255,255,255,0.10);
+  --summary-border: rgba(255,255,255,0.06);
+  --btn-sec-border: rgba(255,255,255,0.12);
+  --btn-sec-color:  rgba(255,255,255,0.45);
+  --nav-bg:     rgba(8,18,43,0.72);
+  --nav-border: rgba(255,255,255,0.08);
+  --select-bg:  #0E1D3F;
+}
+
+[data-theme="light"]{
+  --gold:       #B8860B;
+  --gold-soft:  #7A5800;
+  --gold-dim:   rgba(184,134,11,0.10);
+  --blue-acc:   #3D52C4;
+  --blue-dim:   rgba(61,82,196,0.10);
+  --error:      #C0392B;
+  --white:      #1A1A2E;
+  --muted:      rgba(26,26,46,0.5);
+  --card-bg:    rgba(255,255,255,0.92);
+  --card-border:rgba(0,0,0,0.07);
+  --glass:      rgba(0,0,0,0.03);
+  --glass-b:    rgba(0,0,0,0.06);
+  --input-bg:   rgba(0,0,0,0.03);
+  --input-border:rgba(0,0,0,0.12);
+  --label-color:rgba(26,26,46,0.5);
+  --title-color:#1A1A2E;
+  --sub-color:  rgba(26,26,46,0.55);
+  --eyebrow-color:#2E7D32;
+  --shadow-box: 0 8px 40px rgba(0,0,0,0.10), 0 0 0 1px rgba(46,125,50,0.08) inset;
+  --dot-bg:     rgba(0,0,0,0.12);
+  --mat-res-color: rgba(26,26,46,0.45);
+  --filiere-row-bg: rgba(0,0,0,0.03);
+  --filiere-row-hover: rgba(0,0,0,0.06);
+  --summary-border: rgba(0,0,0,0.06);
+  --btn-sec-border: rgba(0,0,0,0.14);
+  --btn-sec-color:  rgba(26,26,46,0.55);
+  --nav-bg:     rgba(247,249,244,0.88);
+  --nav-border: rgba(0,0,0,0.07);
+  --select-bg:  #FFFFFF;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  color:var(--white);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 16px 24px;
+  transition:color 0.35s, background 0.35s;
+}
+[data-theme="dark"] body{
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #142456 0%, #08122B 55%, #030A1A 100%);
+}
+[data-theme="light"] body{
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #E8F5E9 0%, #F1F8F1 55%, #F7FBF7 100%);
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  top:-200px; left:50%;
+  transform:translateX(-50%);
+  width:700px; height:500px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.progress{
+  display:flex;
+  gap:8px;
+  margin-bottom:28px;
+  z-index:1;
+}
+.step-dot{
+  width:32px; height:4px;
+  border-radius:2px;
+  background:var(--dot-bg);
+  transition:background 0.35s;
+}
+.step-dot.active{ background:var(--gold); }
+.step-dot.done{ background:rgba(201,168,76,0.45); }
+
+.card{
+  width:100%;
+  max-width:640px;
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:24px;
+  border:1px solid var(--card-border);
+  padding:36px 32px 28px;
+  display:none;
+  z-index:1;
+  box-shadow:var(--shadow-box);
+  animation: fadeUp 0.3s ease both;
+  transition:background 0.35s, border-color 0.35s;
+}
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.active{ display:block; }
+
+.card-header{
+  text-align:center;
+  margin-bottom:28px;
+}
+.card-eyebrow{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--eyebrow-color);
+  margin-bottom:8px;
+}
+.card-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.55rem;
+  font-weight:700;
+  letter-spacing:-0.3px;
+  color:var(--title-color);
+}
+.card-sub{
+  font-size:0.82rem;
+  color:var(--sub-color);
+  margin-top:6px;
+  font-weight:400;
+}
+
+.field{ margin-bottom:14px; }
+.field label{
+  display:block;
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--label-color);
+  margin-bottom:6px;
+}
+.field input, .field select{
+  width:100%;
+  padding:13px 16px;
+  border-radius:12px;
+  border:1.5px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--title-color);
+  font-family:'Inter',sans-serif;
+  font-size:0.95rem;
+  outline:none;
+  transition:border 0.2s, background 0.2s;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.field input:focus, .field select:focus{
+  border-color:var(--gold);
+  background:rgba(201,168,76,0.07);
+}
+.field input::placeholder{ color:var(--sub-color); }
+.field input.error{
+  border-color:var(--error) !important;
+  box-shadow:0 0 0 3px rgba(224,87,87,0.18);
+}
+.field select option{ background:var(--select-bg); color:var(--title-color); }
+.field select optgroup{ background:var(--select-bg); color:var(--eyebrow-color); font-style:normal; font-size:0.75rem; }
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:6px;
+}
+.gcol{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:6px;
+}
+.gcol-label{
+  font-size:0.63rem;
+  font-weight:700;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--label-color);
+  text-align:center;
+  line-height:1.4;
+}
+.gcol-label span{
+  display:block;
+  font-size:0.58rem;
+  color:var(--sub-color);
+  font-weight:400;
+  letter-spacing:0;
+}
+.gcol input{
+  width:100%;
+  padding:14px 4px;
+  border-radius:12px;
+  border:1.5px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--title-color);
+  font-family:'Inter',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+  text-align:center;
+  outline:none;
+  transition:border 0.2s, background 0.2s;
+}
+.gcol input:focus{
+  border-color:var(--gold);
+  background:rgba(201,168,76,0.07);
+}
+.gcol input::placeholder{
+  color:var(--sub-color);
+  font-weight:400;
+  font-size:0.78rem;
+}
+.gcol input.error{
+  border-color:var(--error) !important;
+  box-shadow:0 0 0 3px rgba(224,87,87,0.15);
+}
+
+.gcol.bac .gcol-label{ color:#9AAAF5; }
+.gcol.bac input{
+  border-color:rgba(108,127,216,0.4);
+  background:var(--blue-dim);
+  color:#BCC8FF;
+}
+.gcol.bac input:focus{
+  border-color:var(--blue-acc);
+  background:rgba(108,127,216,0.12);
+}
+
+/* ── Matière bloc ── */
+.mat-bloc{ margin-bottom:24px; }
+.mat-nom{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.78rem;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold-soft);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.mat-nom::before{
+  content:'';
+  display:inline-block;
+  width:3px; height:14px;
+  background:var(--gold);
+  border-radius:2px;
+}
+
+/* ── MGD section ── */
+.mgd-section{ margin-bottom:6px; }
+.mgd-section .section-label{
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:var(--label-color);
+  margin-bottom:10px;
+}
+
+/* ── Result bubble ── */
+.result-bubble{
+  margin:16px 0 8px;
+  padding:14px 20px;
+  border-radius:14px;
+  background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,0.25);
+  text-align:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--gold-soft);
+  display:none;
+}
+.result-bubble.visible{ display:block; }
+.result-bubble.error-bubble{
+  background:rgba(224,87,87,0.12);
+  border-color:rgba(224,87,87,0.3);
+  color:#F08080;
+  font-size:0.85rem;
+}
+
+/* ── Page 3 : résumé matières ── */
+.mat-summary{
+  margin:16px 0 8px;
+  padding:14px 18px;
+  border-radius:14px;
+  background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,0.25);
+  display:none;
+}
+.mat-summary.visible{ display:block; }
+.mat-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px solid var(--summary-border);
+}
+.mat-summary-row:last-child{ border-bottom:none; }
+.mat-summary-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.82rem;
+  font-weight:500;
+  color:var(--sub-color);
+}
+.mat-summary-score{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  color:var(--gold-soft);
+}
+
+/* ── Page 4 results ── */
+.cycle-section{ margin-bottom:20px; }
+.cycle-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.68rem;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--label-color);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.cycle-label::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--input-border);
+}
+.filiere-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  border-radius:12px;
+  background:var(--filiere-row-bg);
+  border:1px solid var(--card-border);
+  margin-bottom:8px;
+  transition:background 0.2s;
+}
+.filiere-row:hover{ background:var(--filiere-row-hover); }
+.filiere-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.92rem;
+  font-weight:600;
+  color:var(--title-color);
+}
+.filiere-score{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--gold-soft);
+  white-space:nowrap;
+  margin-left:12px;
+}
+
+/* ── Buttons ── */
+.btn-primary{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg, #D4AF37 0%, #A07820 100%);
+  color:#08122B;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  letter-spacing:0.5px;
+  cursor:pointer;
+  transition:opacity 0.2s, transform 0.15s;
+  box-shadow:0 4px 20px rgba(201,168,76,0.25);
+}
+.btn-primary:hover:not(:disabled){ opacity:0.9; transform:translateY(-1px); }
+.btn-primary:disabled{ opacity:0.35; cursor:not-allowed; transform:none; }
+
+.btn-secondary{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:1.5px solid var(--btn-sec-border);
+  border-radius:14px;
+  background:transparent;
+  color:var(--btn-sec-color);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.88rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover{ border-color:var(--gold); color:var(--gold-soft); }
+
+.btn-row{ display:flex; gap:10px; margin-top:4px; }
+.btn-row .btn-secondary{ margin-top:0; }
+.btn-row .btn-primary{ margin-top:0; }
+
+/* ── Navbar ── */
+.navbar{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 24px;
+  background:var(--nav-bg);
+  border-bottom:1px solid var(--nav-border);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  transition:background 0.35s, border-color 0.35s;
+}
+.nav-brand{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:0.95rem; letter-spacing:2px; color:var(--title-color);
+  text-decoration:none;
+}
+.nav-brand span{ color:var(--gold); }
+.theme-toggle{
+  display:flex; align-items:center; gap:6px;
+  padding:7px 12px; border-radius:20px;
+  border:1px solid var(--btn-sec-border);
+  background:var(--input-bg); color:var(--btn-sec-color);
+  font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:600;
+  cursor:pointer; transition:transform 0.15s, border-color 0.2s;
+}
+.theme-toggle:hover{ transform:translateY(-1px); border-color:var(--gold); }
+
+@media(max-width:480px){
+  .card{ padding:28px 18px 22px; border-radius:20px; }
+  .grid-4{ gap:6px; }
+  .gcol input{ padding:11px 2px; font-size:0.8rem; }
+  .gcol-label{ font-size:0.56rem; }
+  .card-title{ font-size:1.25rem; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">EXCELLENC<span>E</span> · INP-HB</a>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">🌙</span>
+    <span id="themeLabel">Mode clair</span>
+  </button>
+</nav>
+
+<div class="progress" id="prog">
+  <div class="step-dot active" id="d1"></div>
+  <div class="step-dot" id="d2"></div>
+  <div class="step-dot" id="d3"></div>
+  <div class="step-dot" id="d4"></div>
+</div>
+
+<!-- ===== PAGE 1 ===== -->
+<div id="p1" class="card active">
+  <div class="card-header">
+    <div class="card-eyebrow">Étude de dossier · INP-HB</div>
+    <div class="card-title">Informations générales</div>
+    <div class="card-sub">Renseignez votre profil pour commencer</div>
+  </div>
+
+  <div class="field">
+    <label>Nom & Prénom</label>
+    <input id="nom" placeholder="Ex : Koné Aminata">
+  </div>
+
+  <div class="field">
+    <label>Âge</label>
+    <input id="age" type="number" placeholder="Ex : 18">
+  </div>
+
+  <div class="field">
+    <label>Série du Baccalauréat</label>
+    <select id="serie" onchange="serieActive=null;">
+      <optgroup label="Séries générales">
+        <option>A1</option>
+        <option>A2</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+      </optgroup>
+      <optgroup label="Séries techniques F">
+        <option>E</option>
+        <option>F1</option>
+        <option>F2</option>
+        <option>F3</option>
+        <option>F4</option>
+        <option>F7</option>
+      </optgroup>
+      <optgroup label="Brevet de Technicien">
+        <option>BTCOMPTA</option>
+        <option>BTCGP</option>
+        <option>BTGC</option>
+        <option>BTMP</option>
+        <option>BTSTIC</option>
+        <option>BTSTGI</option>
+        <option>BTAGRO-INDUS</option>
+      </optgroup>
+      <optgroup label="Autres">
+        <option>G2</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Points Bac <span style="color:var(--muted);font-weight:400;">(0 – 400)</span></label>
+    <input id="points" type="number" placeholder="Ex : 280">
+  </div>
+
+  <button class="btn-primary" onclick="calcBac()">Calculer la moyenne Bac</button>
+  <div id="bacResult" class="result-bubble"></div>
+  <button id="btn1" class="btn-primary" disabled onclick="go(2)" style="margin-top:10px;">Continuer →</button>
+</div>
+
+<!-- ===== PAGE 2 ===== -->
+<div id="p2" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Étape 2 / 4</div>
+    <div class="card-title">Calcul de la moyenne générale d'étude de dossier</div>
+    <div class="card-sub">Renseignez vos moyennes annuelles</div>
+  </div>
+
+  <div class="mgd-section">
+    <div class="section-label">Moyenne de classe — 3 années</div>
+    <div class="grid-4">
+      <div class="gcol">
+        <div class="gcol-label">2<sup>nd</sup><span>coef 2</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="s2" placeholder="0 – 20">
+      </div>
+      <div class="gcol">
+        <div class="gcol-label">1<sup>ère</sup><span>coef 3</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="s1" placeholder="0 – 20">
+      </div>
+      <div class="gcol">
+        <div class="gcol-label">T<sup>le</sup><span>coef 5</span></div>
+        <input type="number" min="0" max="20" step="0.01" id="t1" placeholder="0 – 20">
+      </div>
+      <div class="gcol bac">
+        <div class="gcol-label">Note Bac</div>
+        <input type="number" min="0" max="20" step="0.01" id="mgdbac" placeholder="0 – 20" readonly>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="calcMGD()">Calculer le MGD</button>
+  <div id="mgdRes" class="result-bubble"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(1)">← Retour</button>
+    <button id="btn2" class="btn-primary" disabled onclick="go(3)">Continuer →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 3 ===== -->
+<div id="p3" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Étape 3 / 4</div>
+    <div class="card-title">Moyennes par matière</div>
+    <div class="card-sub">Saisissez vos notes — la moyenne par matière est calculée automatiquement</div>
+  </div>
+
+  <div id="mat"></div>
+
+  <div id="matSummary" class="mat-summary"></div>
+
+  <div id="matError" class="result-bubble error-bubble"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(2)">← Retour</button>
+    <button id="btn3" class="btn-primary" disabled onclick="go(4)">Voir les résultats →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 4 ===== -->
+<div id="p4" class="card">
+  <div class="card-header">
+    <div class="card-eyebrow">Résultats · Étude de dossier</div>
+    <div class="card-title">Moyennes par filière</div>
+    <div class="card-sub">Calculées selon votre série et vos notes</div>
+  </div>
+
+  <div id="res"></div>
+
+  <div class="btn-row" style="margin-top:14px;">
+    <button class="btn-secondary" onclick="go(3)">← Retour</button>
+  </div>
+</div>
+
+<script>
+let bacGlobal = 0;
+let mgdGlobal = 0;
+let moyMatières = {};
+let serieActive = null; // série pour laquelle la page 3 a été construite
+
+/* ══════════════════════════════════════════
+   PROGRESS & NAVIGATION
+══════════════════════════════════════════ */
+function updateProg(n){
+  for(let i=1;i<=4;i++){
+    let d=document.getElementById("d"+i);
+    d.className="step-dot";
+    if(i<n) d.classList.add("done");
+    else if(i===n) d.classList.add("active");
+  }
+}
+
+function go(n){
+  if(n>1&&document.getElementById("btn1").disabled){go(1);return;}
+  if(n>2&&document.getElementById("btn2").disabled){go(2);return;}
+  if(n>3&&document.getElementById("btn3").disabled){go(3);return;}
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+  updateProg(n);
+  if(n===3) buildMat();
+  if(n===4) renderFilieres();
+}
+
+/* ══════════════════════════════════════════
+   PAGE 1 — BAC
+══════════════════════════════════════════ */
+function calcBac(){
+  let p=document.getElementById("points");
+  let v=+p.value;
+  if(p.value===""||v<0||v>400){
+    p.classList.add("error");
+    hide("bacResult");
+    document.getElementById("btn1").disabled=true;
+    return;
+  }
+  p.classList.remove("error");
+  bacGlobal=v/20;
+  showBubble("bacResult","Moyenne Bac : "+bacGlobal.toFixed(2));
+  let mb=document.getElementById("mgdbac");
+  if(mb) mb.value=bacGlobal.toFixed(2);
+  document.getElementById("btn1").disabled=false;
+}
+
+/* ══════════════════════════════════════════
+   PAGE 2 — MGD
+══════════════════════════════════════════ */
+function calcMGD(){
+  let s2=document.getElementById("s2");
+  let s1=document.getElementById("s1");
+  let t1=document.getElementById("t1");
+  [s2,s1,t1].forEach(el=>el.classList.remove("error"));
+  let invalid=false;
+  [s2,s1,t1].forEach(el=>{
+    if(el.value===""||+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
+  });
+  if(invalid){
+    hide("mgdRes");
+    document.getElementById("btn2").disabled=true;
+    return;
+  }
+  mgdGlobal=((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(bacGlobal*3))/13;
+  showBubble("mgdRes","MGD : "+mgdGlobal.toFixed(2));
+  document.getElementById("btn2").disabled=false;
+}
+
+/* ══════════════════════════════════════════
+   PAGE 3 — MATIÈRES
+══════════════════════════════════════════ */
+const labelsMat={
+  Fr:"Français", Ang:"Anglais", Maths:"Mathématiques",
+  PC:"Sciences Physiques", SVT:"SVT",
+  MT:"Maths Techniques", ScEco:"Sciences Économiques"
+};
+
+function getMatières(){
+  let s=document.getElementById("serie").value;
+  if(s==="A1"||s==="A2")                         return ["Fr","Ang","Maths"];
+  if(s==="B")                                     return ["Fr","Ang","Maths","ScEco","MT"];
+  if(s==="C"||s==="D")                            return ["Fr","Ang","Maths","PC","SVT"];
+  if(s==="G2"||s==="BTCOMPTA")                    return ["Fr","Ang","Maths","MT"];
+  if(s==="E"||s==="F1"||s==="F2"||s==="F3"||s==="F4"||
+     s==="BTSTIC"||s==="BTSTGI"||s==="BTGC"||s==="BTMP"||s==="BTCGP")
+                                                  return ["Fr","Ang","Maths","PC","MT"];
+  if(s==="F7"||s==="BTAGRO-INDUS")               return ["Fr","Ang","Maths","PC","SVT","MT"];
+  return ["Fr","Ang","Maths"];
+}
+
+function buildMat(){
+  let s=document.getElementById("serie").value;
+  // Si la série n'a pas changé, on garde le DOM et les valeurs intactes
+  if(s===serieActive) return;
+  serieActive=s;
+
+  let mats=getMatières();
+  let c=document.getElementById("mat");
+  c.innerHTML="";
+  moyMatières={};
+  hide("matError");
+  document.getElementById("matSummary").classList.remove("visible");
+  document.getElementById("btn3").disabled=true;
+
+  mats.forEach(x=>{
+    c.innerHTML+=`
+    <div class="mat-bloc">
+      <div class="mat-nom">${labelsMat[x]||x}</div>
+      <div class="grid-4">
+        <div class="gcol">
+          <div class="gcol-label">2<sup>nd</sup><span>coef 2</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}s2" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
+        </div>
+        <div class="gcol">
+          <div class="gcol-label">1<sup>ère</sup><span>coef 3</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}s1" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
+        </div>
+        <div class="gcol">
+          <div class="gcol-label">T<sup>le</sup><span>coef 5</span></div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}t1" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
+        </div>
+        <div class="gcol bac">
+          <div class="gcol-label">Note Bac</div>
+          <input type="number" min="0" max="20" step="0.01" id="${x}bac" placeholder="0–20"
+            oninput="autoCalcMat('${x}')">
+        </div>
+      </div>
+      <div id="${x}res" style="
+        margin-top:6px;
+        font-family:'Space Grotesk',sans-serif;
+        font-size:0.78rem;
+        font-weight:600;
+        color:var(--muted);
+        text-align:right;
+        min-height:18px;
+        transition:color 0.2s;
+      "></div>
+    </div>`;
+  });
+}
+
+// Calcule et affiche la moyenne d'une matière en temps réel
+function autoCalcMat(x){
+  let s2=document.getElementById(x+"s2");
+  let s1=document.getElementById(x+"s1");
+  let t1=document.getElementById(x+"t1");
+  let bac=document.getElementById(x+"bac");
+  let res=document.getElementById(x+"res");
+  if(!s2||!s1||!t1||!bac||!res) return;
+
+  [s2,s1,t1,bac].forEach(el=>el.classList.remove("error"));
+
+  let allFilled = s2.value!==""&&s1.value!==""&&t1.value!==""&&bac.value!=="";
+  if(!allFilled){ res.textContent=""; delete moyMatières[x]; checkAllMats(); return; }
+
+  let invalid=false;
+  [s2,s1,t1,bac].forEach(el=>{
+    if(+el.value<0||+el.value>20){el.classList.add("error");invalid=true;}
+  });
+  if(invalid){ res.textContent="Valeur invalide"; res.style.color="var(--error)"; delete moyMatières[x]; checkAllMats(); return; }
+
+  let moy=((+s2.value*2)+(+s1.value*3)+(+t1.value*5)+(+bac.value*3))/13;
+  moyMatières[x]=moy;
+  res.textContent="Moy. : "+moy.toFixed(2);
+  res.style.color="var(--gold-soft)";
+  checkAllMats();
+}
+
+// Vérifie si toutes les matières sont remplies → active le bouton et affiche le résumé
+function checkAllMats(){
+  let mats=getMatières();
+  let allOk=mats.every(x=> moyMatières[x]!==undefined);
+
+  if(allOk){
+    document.getElementById("btn3").disabled=false;
+    renderMatSummary(mats);
+    hide("matError");
+  } else {
+    document.getElementById("btn3").disabled=true;
+    document.getElementById("matSummary").classList.remove("visible");
+  }
+}
+
+function renderMatSummary(mats){
+  let s=document.getElementById("matSummary");
+  s.innerHTML=mats.map(x=>`
+    <div class="mat-summary-row">
+      <span class="mat-summary-name">${labelsMat[x]||x}</span>
+      <span class="mat-summary-score">${moyMatières[x].toFixed(2)}</span>
+    </div>`).join("");
+  s.classList.add("visible");
+}
+
+/* ══════════════════════════════════════════
+   PAGE 4 — FILIÈRES
+══════════════════════════════════════════ */
+
+// Filières accessibles par série
+const filByS={
+  A1:          {courts:["GAE"],                                                            longs:["ECG","LSA"]},
+  A2:          {courts:["GAE"],                                                            longs:["ECG","LSA"]},
+  B:           {courts:["GAE","FCA"],                                                      longs:["ECG"]},
+  C:           {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"],  longs:["ECG","LSA","BCPST","MPSI","PCSI","MP2I"]},
+  D:           {courts:["GAE","FCA","STIC","STGI","GC","MG","PME","CGP","TSAERO","TSA"],  longs:["ECG","LSA","BCPST","PCSI"]},
+  E:           {courts:["STGI","GC","MG","PME","TSAERO"],                                 longs:["MPSI","PCSI","MP2I"]},
+  F1:          {courts:["STGI","TSAERO"],                                                  longs:[]},
+  F2:          {courts:["STIC","STGI","TSAERO"],                                           longs:[]},
+  F3:          {courts:["STGI","TSAERO"],                                                  longs:[]},
+  F4:          {courts:["GC"],                                                             longs:[]},
+  F7:          {courts:["TSA"],                                                            longs:[]},
+  G2:          {courts:["FCA"],                                                            longs:[]},
+  BTCOMPTA:    {courts:["FCA"],                                                            longs:[]},
+  BTSTIC:      {courts:["STIC"],                                                           longs:[]},
+  BTSTGI:      {courts:["STGI"],                                                           longs:[]},
+  BTGC:        {courts:["GC"],                                                             longs:[]},
+  BTMP:        {courts:["MG","PME"],                                                       longs:[]},
+  BTCGP:       {courts:["CGP"],                                                            longs:[]},
+  "BTAGRO-INDUS":{courts:["TSA"],                                                          longs:[]}
+};
+
+const filLabels={
+  GAE:    "GAE — Gestion et administration des entreprises",
+  FCA:    "FCA — Finance, comptabilité et assurance",
+  STIC:   "STIC — Sciences et technologies de l'information et de la communication",
+  STGI:   "STGI — Sciences et technologies du génie industriel",
+  GC:     "GC — Génie civil",
+  MG:     "MG — Mines et géologie",
+  PME:    "PME — Pétrole et maintenance des équipements",
+  CGP:    "CGP — Chimie et génie des procédés",
+  TSAERO: "TSAERO — Techniciens supérieurs en aéronautique",
+  TSA:    "TSA — Techniciens supérieurs en agronomie",
+  ECG:    "ECG — Économique et commerciale générale",
+  LSA:    "LSA — Littéraire et scientifique appliqués",
+  BCPST:  "BCPST — Biologie, chimie, physique et sciences de la terre",
+  MPSI:   "MPSI — Mathématiques, physique et sciences de l'ingénieur",
+  PCSI:   "PCSI — Physique, chimie et sciences de l'ingénieur",
+  MP2I:   "MP2I — Mathématiques, physique, ingénierie et informatique"
+};
+
+// Vérifie que toutes les matières requises sont disponibles
+function ok(...keys){
+  return keys.every(k => moyMatières[k] !== undefined && !isNaN(moyMatières[k]));
+}
+
+function scoreFiliere(f){
+  let s=document.getElementById("serie").value;
+  let m=moyMatières;
+
+  switch(f){
+    case "GAE":
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*2 + m.Ang*2 + m.Maths*3) / 7;
+
+    case "FCA":
+      if(!ok("Fr","Ang","Maths","MT")) return null;
+      return (m.Fr*2 + m.Ang*2 + m.Maths*3 + m.MT*3) / 10;
+
+    case "ECG":
+      if(s==="B"){
+        if(!ok("Fr","Ang","Maths","ScEco")) return null;
+        return (m.Fr*3 + m.Ang*3 + m.Maths*5 + m.ScEco*5) / 16;
+      }
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*3 + m.Ang*3 + m.Maths*5) / 11;
+
+    case "LSA":
+      if(!ok("Fr","Ang","Maths")) return null;
+      return (m.Fr*3 + m.Ang*3 + m.Maths*5) / 11;
+
+    case "BCPST":
+      if(!ok("Fr","Ang","Maths","PC","SVT")) return null;
+      return (m.Fr + m.Ang + m.Maths*3 + m.PC*3 + m.SVT*3) / 11;
+
+    case "TSA":
+      if(s==="F7"||s==="BTAGRO-INDUS"){
+        if(!ok("Fr","Ang","Maths","PC","SVT","MT")) return null;
+        return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.SVT*2 + m.MT*2) / 10;
+      }
+      if(!ok("Fr","Ang","Maths","PC","SVT")) return null;
+      return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.SVT*2) / 8;
+
+    case "STIC":
+    case "STGI":
+    case "GC":
+    case "MG":
+    case "PME":
+    case "CGP":
+    case "TSAERO":
+      if(s==="C"||s==="D"){
+        if(!ok("Fr","Ang","Maths","PC")) return null;
+        return (m.Fr + m.Ang + m.Maths*2 + m.PC*2) / 6;
+      }
+      if(!ok("Fr","Ang","Maths","PC","MT")) return null;
+      return (m.Fr + m.Ang + m.Maths*2 + m.PC*2 + m.MT*3) / 9;
+
+    case "MPSI":
+    case "MP2I":
+    case "PCSI":
+      if(s==="E"){
+        if(!ok("Fr","Ang","Maths","PC","MT")) return null;
+        return (m.Fr + m.Ang + m.Maths*4 + m.PC*4 + m.MT*2) / 12;
+      }
+      if(!ok("Fr","Ang","Maths","PC")) return null;
+      return (m.Fr + m.Ang + m.Maths*4 + m.PC*4) / 10;
+  }
+  return null;
+}
+
+function renderFilieres(){
+  let s=document.getElementById("serie").value;
+  let data=filByS[s]||{courts:[],longs:[]};
+  let resDiv=document.getElementById("res");
+
+  function makeRow(f){
+    let score=scoreFiliere(f);
+    if(score===null||score===undefined) return "";
+    return `
+      <div class="filiere-row">
+        <div class="filiere-name">${filLabels[f]||f}</div>
+        <div class="filiere-score">${score.toFixed(2)}</div>
+      </div>`;
+  }
+
+  let html="";
+  if(data.courts.length){
+    html+=`<div class="cycle-section">
+      <div class="cycle-label">Cycles Courts</div>
+      ${data.courts.map(makeRow).join("")}
+    </div>`;
+  }
+  if(data.longs.length){
+    html+=`<div class="cycle-section">
+      <div class="cycle-label">Cycles Longs</div>
+      ${data.longs.map(makeRow).join("")}
+    </div>`;
+  }
+  resDiv.innerHTML=html;
+}
+
+/* ══════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════ */
+function showBubble(id,txt){
+  let el=document.getElementById(id);
+  el.className="result-bubble visible";
+  el.textContent=txt;
+}
+function hide(id){
+  let el=document.getElementById(id);
+  if(el) el.className="result-bubble";
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  if(bacGlobal>0){
+    let mb=document.getElementById("mgdbac");
+    if(mb) mb.value=bacGlobal.toFixed(2);
+  }
+  initTheme();
+});
+
+/* ══════════════════════════════════════════
+   THÈME
+══════════════════════════════════════════ */
+function initTheme(){
+  const saved=localStorage.getItem("excellence_theme")||"dark";
+  applyTheme(saved);
+}
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme",t);
+  document.getElementById("themeIcon").textContent= t==="dark"?"🌙":"☀️";
+  document.getElementById("themeLabel").textContent= t==="dark"?"Mode clair":"Mode sombre";
+  localStorage.setItem("excellence_theme",t);
+}
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute("data-theme");
+  applyTheme(cur==="dark"?"light":"dark");
+}
+</script>
+
+</body>
+</html>
